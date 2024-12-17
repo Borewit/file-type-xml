@@ -1,0 +1,42 @@
+{
+  "name": "@file-type/xml",
+  "version": "0.1.0",
+  "description": "XML detection plugin",
+  "type": "module",
+  "exports": "./lib/index.js",
+  "scripts": {
+    "test": "mocha"
+  },
+  "keywords": [
+    "file-type",
+    "detection",
+    "detector",
+    "XML",
+    "SVG",
+    "XHTML",
+    "RSS",
+    "KML"
+  ],
+  "dependencies": {
+    "sax": "^1.4.1",
+    "strtok3": "^10.0.1"
+  },
+  "devDependencies": {
+    "chai": "^5.1.2",
+    "mocha": "^11.0.1"
+  },
+  "files": [
+  "lib/**/*.js",
+  "lib/**/*.d.ts",
+  "lib/*.cjs"
+  ],
+  "author": {
+    "name": "Borewit",
+    "url": "https://github.com/Borewit"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Borewit/file-type-xml.git"
+  },
+  "license": "MIT"
+}
