@@ -80,4 +80,33 @@ describe('XML detector', () => {
       assert.strictEqual(fileType.ext, 'musicxml');
     });
   });
+
+  describe('Handle different text encoding', () => {
+    it('should handle UTF-8 BOM field', async () => {
+      const samplePath = getSamplePath('fixture-utf8-bom.xml');
+      const tokenizer = await fromFile(samplePath);
+      const fileType = await detectXml(tokenizer);
+      assert.isDefined(fileType, 'should detect the file type');
+      assert.strictEqual(fileType.mime, 'application/xml');
+      assert.strictEqual(fileType.ext, 'xml');
+    });
+
+    it('should handle UTF-16-BE encoded text with BOM field', async () => {
+      const samplePath = getSamplePath('fixture-utf16-be-bom.xml');
+      const tokenizer = await fromFile(samplePath);
+      const fileType = await detectXml(tokenizer);
+      assert.isDefined(fileType, 'should detect the file type');
+      assert.strictEqual(fileType.mime, 'application/xml');
+      assert.strictEqual(fileType.ext, 'xml');
+    });
+
+    it('should handle UTF-16-LE encoded text with BOM field', async () => {
+      const samplePath = getSamplePath('fixture-utf16-le-bom.xml');
+      const tokenizer = await fromFile(samplePath);
+      const fileType = await detectXml(tokenizer);
+      assert.isDefined(fileType, 'should detect the file type');
+      assert.strictEqual(fileType.mime, 'application/xml');
+      assert.strictEqual(fileType.ext, 'xml');
+    });
+  });
 });
