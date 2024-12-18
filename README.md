@@ -14,10 +14,10 @@ npm install @file-type/xml
 
 The following example shows how add the XML detector to [file-type](https://github.com/sindresorhus/file-type).
 ```js
-import {FileTypeParser} from 'file-type'; // or `NodeFileTypeParser` in Node.js
-import {detectXml} from '@file-type/xml'; // or `NodeFileTypeParser` in Node.js
+import {NodeFileTypeParser} from 'file-type';
+import {detectXml} from '@file-type/xml';
 
-const parser = new FileTypeParser({customDetectors: [detectXml]});
+const parser = new NodeFileTypeParser({customDetectors: [detectXml]});
 const fileType = await parser.fromFile('example.kml');
 console.log(fileType);
 ```
