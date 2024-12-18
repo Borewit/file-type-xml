@@ -26,9 +26,9 @@
     "mocha": "^11.0.1"
   },
   "files": [
-  "lib/**/*.js",
-  "lib/**/*.d.ts",
-  "lib/*.cjs"
+    "lib/**/*.js",
+    "lib/**/*.d.ts",
+    "lib/*.cjs"
   ],
   "author": {
     "name": "Borewit",
@@ -38,5 +38,6 @@
     "type": "git",
     "url": "git+https://github.com/Borewit/file-type-xml.git"
   },
-  "license": "MIT"
+  "license": "MIT",
+  "packageManager": "yarn@4.5.3"
 }

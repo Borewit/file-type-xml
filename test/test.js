@@ -72,7 +72,7 @@ describe('XML detector', () => {
     });
 
     it('should detect Uncompressed MusicXML', async () => {
-      const samplePath = getSamplePath('MozartTrio.musicxml');
+      const samplePath = getSamplePath('MozartPianoSonata.musicxml');
       const tokenizer = await fromFile(samplePath);
       const fileType = await detectXml(tokenizer);
       assert.isDefined(fileType, 'should detect the file type');
