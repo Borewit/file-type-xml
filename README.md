@@ -10,7 +10,7 @@ Detector plugin for [file-type](https://github.com/sindresorhus/file-type) for X
 npm install @file-type/xml
 ```
 
-### Usage
+## Usage
 
 The following example shows how add the XML detector to [file-type](https://github.com/sindresorhus/file-type).
 ```js
@@ -22,4 +22,12 @@ const fileType = await parser.fromFile('example.kml');
 console.log(fileType);
 ```
 
+## Support file formats
 
+- [XML](https://en.wikipedia.org/wiki/XML) (default for XML, unless more specific format was detected)
+- [GML (Geography Markup Language)](https://en.wikipedia.org/wiki/Geography_Markup_Language)
+- [KML (Keyhole Markup Language)](https://en.wikipedia.org/wiki/XHTML)
+- [MusicXML, Uncompressed](https://en.wikipedia.org/wiki/MusicXML)
+- [RSS (RDF Site Summary or Really Simple Syndication)](https://en.wikipedia.org/wiki/RSS)
+- [SVG: (Scalable Vector Graphics)](https://en.wikipedia.org/wiki/SVG)
+- [XHTML](https://en.wikipedia.org/wiki/XHTML)

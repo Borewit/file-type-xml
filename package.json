@@ -12,10 +12,13 @@
     "detection",
     "detector",
     "XML",
+    "namespace",
     "SVG",
     "XHTML",
     "RSS",
-    "KML"
+    "KML",
+    "GML",
+    "MusicXML"
   ],
   "dependencies": {
     "sax": "^1.4.1",
