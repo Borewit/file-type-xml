@@ -4,7 +4,7 @@ import {describe, it} from 'mocha';
 import {fromFile} from 'strtok3';
 import {assert} from 'chai';
 
-import {detectXml} from '../lib/index.js';
+import {detectXml, XmlTextDetector} from '../lib/index.js';
 
 const filename = fileURLToPath(import.meta.url);
 const dirname = path.dirname(filename);
@@ -126,5 +126,43 @@ describe('XML detector', () => {
       assert.strictEqual(fileType.mime, 'application/xml');
       assert.strictEqual(fileType.ext, 'xml');
     });
+
   });
+
+  describe('XmlTextDetector', () => {
+
+    function detectSvg(svgText) {
+      const xmlTextDetector = new XmlTextDetector();
+      xmlTextDetector.write(svgText);
+      const fileType = xmlTextDetector.fileType;
+      assert.isDefined(fileType, 'should detect the file type');
+      assert.strictEqual(fileType.mime, 'image/svg+xml');
+      assert.strictEqual(fileType.ext, 'svg');
+      console.log(JSON.stringify(fileType));
+    }
+
+    function isNotSvg(svgText) {
+      const xmlTextDetector = new XmlTextDetector();
+      xmlTextDetector.write(svgText);
+      const fileType = xmlTextDetector.fileType;
+      assert.isUndefined(fileType, 'should not be detected');
+    }
+
+    it('should be able to detect SVG', async () => {
+      detectSvg('<svg xmlns="http://www.w3.org/2000/svg"><path fill="#00CD9F"/></svg>');
+    });
+
+    it('should be able to detect Non-namespaced SVG', async () => {
+      detectSvg('<svg width="100" height="100" viewBox="0 0 30 30" version="1.1"></svg>');
+    });
+
+    it('should be able to detect Non-namespaced SVG with mixed case tags', async () => {
+      detectSvg('<SvG version="1.1"></SvG>');
+    });
+
+    it('should not be detected as SVG', async () => {
+      isNotSvg('this string contains an svg <svg></svg> in the middle')
+    });
+  });
+
 });

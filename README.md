@@ -22,6 +22,15 @@ const fileType = await parser.fromFile('example.kml');
 console.log(fileType);
 ```
 
+You can also use the XML detector outside file-type:
+```js
+import {XmlTextDetector} from 'index.js';
+
+xmlTextDetector.write('<svg xmlns="http://www.w3.org/2000/svg"><path fill="#00CD9F"/></svg>');
+const fileType = xmlTextDetector.fileType;
+console.log(JSON.stringify(fileType)); // Outputs: {"ext":"svg","mime":"image/svg+xml"}
+```
+
 ## Support file formats
 
 - [XML](https://en.wikipedia.org/wiki/XML) (default for XML, unless more specific format was detected)
