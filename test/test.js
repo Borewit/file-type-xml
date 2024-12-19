@@ -108,5 +108,23 @@ describe('XML detector', () => {
       assert.strictEqual(fileType.mime, 'application/xml');
       assert.strictEqual(fileType.ext, 'xml');
     });
+
+    it('should handle UTF-16-BE encoded text without BOM field', async () => {
+      const samplePath = getSamplePath('fixture-utf16-be.xml');
+      const tokenizer = await fromFile(samplePath);
+      const fileType = await detectXml(tokenizer);
+      assert.isDefined(fileType, 'should detect the file type');
+      assert.strictEqual(fileType.mime, 'application/xml');
+      assert.strictEqual(fileType.ext, 'xml');
+    });
+
+    it('should handle UTF-16-LE encoded text without BOM field', async () => {
+      const samplePath = getSamplePath('fixture-utf16-le.xml');
+      const tokenizer = await fromFile(samplePath);
+      const fileType = await detectXml(tokenizer);
+      assert.isDefined(fileType, 'should detect the file type');
+      assert.strictEqual(fileType.mime, 'application/xml');
+      assert.strictEqual(fileType.ext, 'xml');
+    });
   });
 });

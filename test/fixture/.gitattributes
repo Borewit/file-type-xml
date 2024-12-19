@@ -1,0 +1,5 @@
+fixture-utf8-bom.xml -text
+fixture-utf16-be-bom.xml -text
+fixture-utf16-le-bom.xml -text
+fixture-utf16-be.xml -text
+fixture-utf16-le.xml -text
