@@ -9,9 +9,11 @@
   },
   "keywords": [
     "file-type",
+    "detect",
     "detection",
     "detector",
     "XML",
+    "signature",
     "namespace",
     "SVG",
     "XHTML",
