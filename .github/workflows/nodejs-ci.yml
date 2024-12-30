@@ -33,5 +33,8 @@ jobs:
       - name: Install dependencies
         run: yarn install
 
+      - name: Compile TypeScript
+        run: yarn run build
+
       - name: Test with Node.js ${{ matrix.node-version }}
         run: yarn run test
