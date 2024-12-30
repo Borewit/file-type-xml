@@ -47,15 +47,6 @@ function isXml(array: Uint8Array): {xml: true, encoding: XmlTextEncoding, offset
     return { xml: false };
 }
 
-function extractNsElement(node: sax.Tag) {
-    const parts = node.name.split(':');
-    if (parts.length === 1) {
-        return { name: parts[0], ns: node.attributes['xmlns'] };
-    }
-    else if (parts.length === 2) {
-        return { name: parts[1], ns: node.attributes[`xmlns:${parts[0]}`] };
-    }
-}
 /**
  * Maps the root element namespace to corresponding file-type
  */
@@ -114,7 +105,7 @@ export class XmlTextDetector {
         this.options = options ?? {};
         this.firstTag = true;
         this.onEnd = false;
-        this.parser = sax.parser(true);
+        this.parser = sax.parser(true, {xmlns: true});
         this.nesting = 0;
         this.parser.onerror = e => {
             if (e.message.startsWith('Invalid character entity')) { // Allow entity reference
@@ -129,14 +120,13 @@ export class XmlTextDetector {
                 return;
             }
             this.firstTag = false;
-            const nsNode = extractNsElement(node as sax.Tag);
-            if (nsNode?.ns) {
+            if ((node as sax.QualifiedTag).uri ) {
                 // Resolve file-type boot root element namespace
-                this.fileType = namespaceMapping[nsNode.ns.toLowerCase()];
+                this.fileType = namespaceMapping[(node as sax.QualifiedTag).uri];
             }
-            else if (nsNode && nsNode.name) {
+            else if (node.name) {
                 // Fall back on element name if there is no namespace
-                this.fileType = rootNameMapping[nsNode.name.toLowerCase()];
+                this.fileType = rootNameMapping[node.name.toLowerCase()];
             }
             if (this.fileType && !this.options.fullScan) {
                 this.onEnd = true;
