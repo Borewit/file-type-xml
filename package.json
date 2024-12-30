@@ -1,48 +1,57 @@
 {
-  "name": "@file-type/xml",
-  "version": "0.2.1",
-  "description": "XML detection plugin",
-  "type": "module",
-  "exports": "./lib/index.js",
-  "scripts": {
-    "test": "mocha"
-  },
-  "keywords": [
-    "file-type",
-    "detect",
-    "detection",
-    "detector",
-    "XML",
-    "signature",
-    "namespace",
-    "SVG",
-    "XHTML",
-    "RSS",
-    "KML",
-    "GML",
-    "MusicXML"
-  ],
-  "dependencies": {
-    "sax": "^1.4.1",
-    "strtok3": "^10.0.1"
-  },
-  "devDependencies": {
-    "chai": "^5.1.2",
-    "mocha": "^11.0.1"
-  },
-  "files": [
-    "lib/**/*.js",
-    "lib/**/*.d.ts",
-    "lib/*.cjs"
-  ],
-  "author": {
-    "name": "Borewit",
-    "url": "https://github.com/Borewit"
-  },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/Borewit/file-type-xml.git"
-  },
-  "license": "MIT",
-  "packageManager": "yarn@4.5.3"
+	"name": "@file-type/xml",
+	"version": "0.2.1",
+	"description": "XML detection plugin",
+	"type": "module",
+	"types": "./lib/index.d.ts",
+	"exports": "./lib/index.js",
+	"scripts": {
+		"clean": "del-cli 'lib/**/*.js' 'lib/**/*.js.map' 'lib/**/*.d.ts' 'src/**/*.d.ts'",
+		"compile-src": "tsc -p lib",
+		"compile": "yarn run  compile-src",
+		"build": "yarn run clean && yarn compile",
+		"test": "mocha"
+	},
+	"keywords": [
+		"file-type",
+		"detect",
+		"detection",
+		"detector",
+		"XML",
+		"signature",
+		"namespace",
+		"SVG",
+		"XHTML",
+		"RSS",
+		"KML",
+		"GML",
+		"MusicXML"
+	],
+	"dependencies": {
+		"sax": "^1.4.1",
+		"strtok3": "^10.0.1"
+	},
+	"devDependencies": {
+		"@types/sax": "^1.2.7",
+		"chai": "^5.1.2",
+		"del-cli": "^6.0.0",
+		"file-type": "^19.6.0",
+		"mocha": "^11.0.1",
+		"typescript": "^5.7.2"
+	},
+	"files": [
+		"lib/**/*.js",
+		"lib/**/*.d.ts",
+		"lib/*.cjs"
+	],
+	"author": {
+		"name": "Borewit",
+		"url": "https://github.com/Borewit"
+	},
+	"repository": {
+		"type": "git",
+		"url": "git+https://github.com/Borewit/file-type-xml.git"
+	},
+	"license": "MIT",
+	"packageManager": "yarn@4.5.3"
 }

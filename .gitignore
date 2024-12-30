@@ -1,6 +1,9 @@
 # Project
 node_modules/
 
+# TypeScript
+lib/**/*.js
+
 #IntelliJ IDEA:
 .idea
 *.iml
