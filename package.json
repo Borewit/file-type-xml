@@ -1,6 +1,6 @@
 {
 	"name": "@file-type/xml",
-	"version": "0.3.0",
+	"version": "0.4.0",
 	"description": "XML detection plugin",
 	"type": "module",
 	"types": "./lib/index.d.ts",
