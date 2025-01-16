@@ -23,7 +23,7 @@ describe('XML detector', () => {
 			const samplePath = getSamplePath('simple.xml');
 			const tokenizer = await fromFile(samplePath);
 			try {
-				const fileType = await detectXml(tokenizer);
+				const fileType = await detectXml.detect(tokenizer);
 				assert.isDefined(fileType, 'should detect the file type');
 				assert.strictEqual(fileType.mime, 'application/xml');
 				assert.strictEqual(fileType.ext, 'xml');
@@ -39,7 +39,7 @@ describe('XML detector', () => {
 				const samplePath = getSamplePath('sample-svg-files-sample-4.svg');
 				const tokenizer = await fromFile(samplePath);
 				try {
-					const fileType = await detectXml(tokenizer);
+					const fileType = await detectXml.detect(tokenizer);
 					assert.isDefined(fileType, 'should detect the file type');
 					assert.strictEqual(fileType.mime, 'image/svg+xml');
 					assert.strictEqual(fileType.ext, 'svg');
@@ -52,7 +52,7 @@ describe('XML detector', () => {
 				const samplePath = getSamplePath('no-namespace.svg');
 				const tokenizer = await fromFile(samplePath);
 				try {
-					const fileType = await detectXml(tokenizer);
+					const fileType = await detectXml.detect(tokenizer);
 					assert.isDefined(fileType, 'should detect the file type');
 					assert.strictEqual(fileType.mime, 'image/svg+xml');
 					assert.strictEqual(fileType.ext, 'svg');
@@ -67,7 +67,7 @@ describe('XML detector', () => {
 			const samplePath = getSamplePath('simple.xhtml');
 			const tokenizer = await fromFile(samplePath);
 			try {
-				const fileType = await detectXml(tokenizer);
+				const fileType = await detectXml.detect(tokenizer);
 				assert.isDefined(fileType, 'should detect the file type');
 				assert.strictEqual(fileType.mime, 'application/xhtml+xml');
 				assert.strictEqual(fileType.ext, 'xhtml');
@@ -80,7 +80,7 @@ describe('XML detector', () => {
 			const samplePath = getSamplePath('simple-rss20-feed.rss');
 			const tokenizer = await fromFile(samplePath);
 			try {
-				const fileType = await detectXml(tokenizer);
+				const fileType = await detectXml.detect(tokenizer);
 				assert.isDefined(fileType, 'should detect the file type');
 				assert.strictEqual(fileType.mime, 'application/rss+xml');
 				assert.strictEqual(fileType.ext, 'rss');
@@ -93,7 +93,7 @@ describe('XML detector', () => {
 			const samplePath = getSamplePath('example.kml');
 			const tokenizer = await fromFile(samplePath);
 			try {
-				const fileType = await detectXml(tokenizer);
+				const fileType = await detectXml.detect(tokenizer);
 				assert.isDefined(fileType, 'should detect the file type');
 				assert.strictEqual(fileType.mime, 'application/vnd.google-earth.kml+xml');
 				assert.strictEqual(fileType.ext, 'kml');
@@ -106,7 +106,7 @@ describe('XML detector', () => {
 			const samplePath = getSamplePath('sample.gml');
 			const tokenizer = await fromFile(samplePath);
 			try {
-				const fileType = await detectXml(tokenizer);
+				const fileType = await detectXml.detect(tokenizer);
 				assert.isDefined(fileType, 'should detect the file type');
 				assert.strictEqual(fileType.mime, 'application/gml+xml');
 				assert.strictEqual(fileType.ext, 'gml');
@@ -119,7 +119,7 @@ describe('XML detector', () => {
 			const samplePath = getSamplePath('MozartPianoSonata.musicxml');
 			const tokenizer = await fromFile(samplePath);
 			try {
-				const fileType = await detectXml(tokenizer);
+				const fileType = await detectXml.detect(tokenizer);
 				assert.isDefined(fileType, 'should detect the file type');
 				assert.strictEqual(fileType.mime, 'application/vnd.recordare.musicxml+xml');
 				assert.strictEqual(fileType.ext, 'musicxml');
@@ -134,7 +134,7 @@ describe('XML detector', () => {
 			const samplePath = getSamplePath('fixture-utf8-bom.xml');
 			const tokenizer = await fromFile(samplePath);
 			try {
-				const fileType = await detectXml(tokenizer);
+				const fileType = await detectXml.detect(tokenizer);
 				assert.isDefined(fileType, 'should detect the file type');
 				assert.strictEqual(fileType.mime, 'application/xml');
 				assert.strictEqual(fileType.ext, 'xml');
@@ -147,7 +147,7 @@ describe('XML detector', () => {
 			const samplePath = getSamplePath('fixture-utf16-be-bom.xml');
 			const tokenizer = await fromFile(samplePath);
 			try {
-				const fileType = await detectXml(tokenizer);
+				const fileType = await detectXml.detect(tokenizer);
 				assert.isDefined(fileType, 'should detect the file type');
 				assert.strictEqual(fileType.mime, 'application/xml');
 				assert.strictEqual(fileType.ext, 'xml');
@@ -160,7 +160,7 @@ describe('XML detector', () => {
 			const samplePath = getSamplePath('fixture-utf16-le-bom.xml');
 			const tokenizer = await fromFile(samplePath);
 			try {
-				const fileType = await detectXml(tokenizer);
+				const fileType = await detectXml.detect(tokenizer);
 				assert.isDefined(fileType, 'should detect the file type');
 				assert.strictEqual(fileType.mime, 'application/xml');
 				assert.strictEqual(fileType.ext, 'xml');
@@ -173,7 +173,7 @@ describe('XML detector', () => {
 			const samplePath = getSamplePath('fixture-utf16-be.xml');
 			const tokenizer = await fromFile(samplePath);
 			try {
-				const fileType = await detectXml(tokenizer);
+				const fileType = await detectXml.detect(tokenizer);
 				assert.isDefined(fileType, 'should detect the file type');
 				assert.strictEqual(fileType.mime, 'application/xml');
 				assert.strictEqual(fileType.ext, 'xml');
@@ -186,7 +186,7 @@ describe('XML detector', () => {
 			const samplePath = getSamplePath('fixture-utf16-le.xml');
 			const tokenizer = await fromFile(samplePath);
 			try {
-				const fileType = await detectXml(tokenizer);
+				const fileType = await detectXml.detect(tokenizer);
 				assert.isDefined(fileType, 'should detect the file type');
 				assert.strictEqual(fileType.mime, 'application/xml');
 				assert.strictEqual(fileType.ext, 'xml');
