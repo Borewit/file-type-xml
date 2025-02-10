@@ -17,15 +17,16 @@ The following example shows how add the XML detector to [file-type](https://gith
 import {NodeFileTypeParser} from 'file-type';
 import {detectXml} from '@file-type/xml';
 
-const parser = new NodeFileTypeParser({customDetectors: [detectXml]});
+const parser = new FileTypeParser({customDetectors: [detectXml]});
 const fileType = await parser.fromFile('example.kml');
 console.log(fileType);
 ```
 
-You can also use the XML detector outside file-type:
+You can also use the XML detector outside [file-type](https://github.com/sindresorhus/file-type):
 ```js
 import {XmlTextDetector} from '@file-type/xml';
 
+const xmlTextDetector = new XmlTextDetector();
 xmlTextDetector.write('<svg xmlns="http://www.w3.org/2000/svg"><path fill="#00CD9F"/></svg>');
 const fileType = xmlTextDetector.fileType;
 console.log(JSON.stringify(fileType)); // Outputs: {"ext":"svg","mime":"image/svg+xml"}
