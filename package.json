@@ -9,6 +9,7 @@
 		"clean": "del-cli 'lib/**/*.js' 'lib/**/*.js.map' 'lib/**/*.d.ts' 'src/**/*.d.ts'",
 		"compile-src": "tsc -p lib",
 		"compile": "yarn run  compile-src",
+		"lint-ts": "biome check",
 		"build": "yarn run clean && yarn compile",
 		"test": "mocha"
 	},
@@ -32,6 +33,7 @@
 		"strtok3": "^10.0.1"
 	},
 	"devDependencies": {
+		"@biomejs/biome": "^1.9.4",
 		"@types/sax": "^1.2.7",
 		"chai": "^5.1.2",
 		"del-cli": "^6.0.0",

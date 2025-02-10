@@ -1,6 +1,6 @@
 import sax from 'sax';
-import { ITokenizer } from 'strtok3';
-import { type FileTypeResult, type Detector } from 'file-type';
+import type {ITokenizer} from 'strtok3';
+import type {FileTypeResult, Detector} from 'file-type';
 
 type XmlTextEncoding = 'utf-8' | 'utf-16be' | 'utf-16le';
 
@@ -19,15 +19,20 @@ function startsWith(array: Uint8Array | number[], prefix: Uint8Array | number[])
 function isXml(array: Uint8Array): { xml: true, encoding: XmlTextEncoding, offset: number } | { xml: false } {
 	if (startsWith(array, [60, 63, 120, 109, 108, 32])) {
 		return {xml: true, encoding: 'utf-8', offset: 0};
-	} else if (startsWith(array, [0xEF, 0xBB, 0xBF, 60, 63, 120, 109, 108, 32])) { // UTF-8 BOM
+	}
+	if (startsWith(array, [0xEF, 0xBB, 0xBF, 60, 63, 120, 109, 108, 32])) { // UTF-8 BOM
 		return {xml: true, encoding: 'utf-8', offset: 3};
-	} else if (startsWith(array, [0xFE, 0xFF, 0, 60, 0, 63, 0, 120, 0, 109, 0, 108, 0, 32])) {
+	}
+	if (startsWith(array, [0xFE, 0xFF, 0, 60, 0, 63, 0, 120, 0, 109, 0, 108, 0, 32])) {
 		return {xml: true, encoding: 'utf-16be', offset: 2};
-	} else if (startsWith(array, [0xFF, 0xFE, 60, 0, 63, 0, 120, 0, 109, 0, 108, 0, 32, 0])) {
+	}
+	if (startsWith(array, [0xFF, 0xFE, 60, 0, 63, 0, 120, 0, 109, 0, 108, 0, 32, 0])) {
 		return {xml: true, encoding: 'utf-16le', offset: 2};
-	} else if (startsWith(array, [0, 60, 0, 63, 0, 120, 0, 109, 0, 108, 0, 32])) {
+	}
+	if (startsWith(array, [0, 60, 0, 63, 0, 120, 0, 109, 0, 108, 0, 32])) {
 		return {xml: true, encoding: 'utf-16be', offset: 0};
-	} else if (startsWith(array, [60, 0, 63, 0, 120, 0, 109, 0, 108, 0, 32, 0])) {
+	}
+	if (startsWith(array, [60, 0, 63, 0, 120, 0, 109, 0, 108, 0, 32, 0])) {
 		return {xml: true, encoding: 'utf-16le', offset: 0};
 	}
 	return {xml: false};
