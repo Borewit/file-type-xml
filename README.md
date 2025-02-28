@@ -1,5 +1,7 @@
 [![NPM version](https://img.shields.io/npm/v/@file-type/xml.svg)](https://npmjs.org/package/@file-type/xml)
 [![Node.js CI](https://github.com/Borewit/file-type-xml/actions/workflows/nodejs-ci.yml/badge.svg)](https://github.com/Borewit/file-type-xml/actions/workflows/nodejs-ci.yml)
+[![npm downloads](http://img.shields.io/npm/dm/@file-type/xml.svg)](https://npmcharts.com/compare/@file-type/xml?start=365)
+
 # @file-type/xml
 
 Detector plugin for [file-type](https://github.com/sindresorhus/file-type) for XML files.
