@@ -30,7 +30,7 @@
 	],
 	"dependencies": {
 		"sax": "^1.4.1",
-		"strtok3": "^10.2.1"
+		"strtok3": "^10.2.2"
 	},
 	"devDependencies": {
 		"@biomejs/biome": "^1.9.4",
