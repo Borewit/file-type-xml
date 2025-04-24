@@ -56,5 +56,5 @@
 		"url": "git+https://github.com/Borewit/file-type-xml.git"
 	},
 	"license": "MIT",
-	"packageManager": "yarn@4.6.0"
+	"packageManager": "yarn@4.9.1"
 }
