@@ -11,7 +11,8 @@
 		"compile": "yarn run  compile-src",
 		"lint-ts": "biome check",
 		"build": "yarn run clean && yarn compile",
-		"test": "mocha"
+		"test": "mocha",
+		"prepublishOnly": "yarn run build"
 	},
 	"keywords": [
 		"file-type",
