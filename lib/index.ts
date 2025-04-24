@@ -25,7 +25,7 @@ function hasArrayXmlTag(array: Uint8Array, encoding: string): boolean {
 	return hasXmlTag(textDecoder.decode(array));
 }
 
-function isXml(array: Uint8Array): { xml: true, encoding: XmlTextEncoding, offset: number } | { xml: false } {
+export function isXml(array: Uint8Array): { xml: true, encoding: XmlTextEncoding, offset: number } | { xml: false } {
 	if (startsWith(array, [60, 63, 120, 109, 108, 32])) {
 		return {xml: true, encoding: 'utf-8', offset: 0};
 	}
