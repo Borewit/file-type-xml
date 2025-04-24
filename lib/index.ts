@@ -16,17 +16,36 @@ function startsWith(array: Uint8Array | number[], prefix: Uint8Array | number[])
 	return true;
 }
 
+function hasXmlTag(xmlString: string): boolean {
+	return /^<\s*\w+(?=\s+[^<>]*=|>)/.test(xmlString);
+}
+
+function hasArrayXmlTag(array: Uint8Array, encoding: string): boolean {
+	const textDecoder = new TextDecoder(encoding);
+	return hasXmlTag(textDecoder.decode(array));
+}
+
 function isXml(array: Uint8Array): { xml: true, encoding: XmlTextEncoding, offset: number } | { xml: false } {
 	if (startsWith(array, [60, 63, 120, 109, 108, 32])) {
 		return {xml: true, encoding: 'utf-8', offset: 0};
 	}
-	if (startsWith(array, [0xEF, 0xBB, 0xBF, 60, 63, 120, 109, 108, 32])) { // UTF-8 BOM
-		return {xml: true, encoding: 'utf-8', offset: 3};
+	if (startsWith(array, [0xEF, 0xBB, 0xBF])) { // UTF-8 BOM
+		const encoding = 'utf-8'
+		if (startsWith(array.subarray(3), [60, 63, 120, 109, 108, 32]) || hasArrayXmlTag(array, encoding)) {
+			return {xml: true, encoding, offset: 3};
+		}
 	}
-	if (startsWith(array, [0xFE, 0xFF, 0, 60, 0, 63, 0, 120, 0, 109, 0, 108, 0, 32])) {
-		return {xml: true, encoding: 'utf-16be', offset: 2};
+	if (startsWith(array, [0xFE, 0xFF])) {
+		const encoding = 'utf-16be';
+		if (startsWith(array.subarray(2), [0, 60, 0, 63, 0, 120, 0, 109, 0, 108, 0, 32]) || hasArrayXmlTag(array, encoding)) {
+			return {xml: true, encoding, offset: 2};
+		}
 	}
-	if (startsWith(array, [0xFF, 0xFE, 60, 0, 63, 0, 120, 0, 109, 0, 108, 0, 32, 0])) {
+	if (startsWith(array, [0xFF, 0xFE])) {
+		const encoding = 'utf-16le';
+		if (startsWith(array.subarray(2), [60, 0, 63, 0, 120, 0, 109, 0, 108, 0, 32, 0]) || hasArrayXmlTag(array, encoding)) {
+			return {xml: true, encoding, offset: 2};
+		}
 		return {xml: true, encoding: 'utf-16le', offset: 2};
 	}
 	if (startsWith(array, [0, 60, 0, 63, 0, 120, 0, 109, 0, 108, 0, 32])) {
@@ -34,6 +53,9 @@ function isXml(array: Uint8Array): { xml: true, encoding: XmlTextEncoding, offse
 	}
 	if (startsWith(array, [60, 0, 63, 0, 120, 0, 109, 0, 108, 0, 32, 0])) {
 		return {xml: true, encoding: 'utf-16le', offset: 0};
+	}
+	if (hasArrayXmlTag(array, 'utf-8')) {
+		return {xml: true, encoding: 'utf-8', offset: 0};
 	}
 	return {xml: false};
 }

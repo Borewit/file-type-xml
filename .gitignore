@@ -3,6 +3,7 @@ node_modules/
 
 # TypeScript
 lib/**/*.js
+lib/**/*.d.ts
 
 #IntelliJ IDEA:
 .idea

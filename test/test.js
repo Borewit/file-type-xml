@@ -61,6 +61,37 @@ describe('XML detector', () => {
 				}
 			});
 
+			describe('SVG without XML header', () => {
+
+				async function detectSvg(fixture) {
+					const samplePath = getSamplePath(fixture);
+					const tokenizer = await fromFile(samplePath);
+					try {
+						const fileType = await detectXml.detect(tokenizer);
+						assert.isDefined(fileType, 'should detect the file type');
+						assert.strictEqual(fileType.mime, 'image/svg+xml');
+						assert.strictEqual(fileType.ext, 'svg');
+					} finally {
+						await tokenizer.close();
+					}
+				}
+
+				it('should detect UTF-8 without XML header', () => {
+					return detectSvg('no-xml-header-utf8.svg');
+				});
+
+				it('should detect UTF-8 with BOM, without XML header',() => {
+					return detectSvg('no-xml-header-utf8-bom.svg');
+				});
+
+				it('should detect UTF-16-BE with BOM, without XML header',() => {
+					return detectSvg('no-xml-header-utf16-be-bom.svg');
+				});
+
+				it('should detect UTF-16-LE with BOM, without XML header',() => {
+					return detectSvg('no-xml-header-utf16-le-bom.svg');
+				});
+			});
 		});
 
 		it('should detect XHTML', async () => {

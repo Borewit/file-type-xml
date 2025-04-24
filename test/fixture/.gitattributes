@@ -3,3 +3,7 @@ fixture-utf16-be-bom.xml -text
 fixture-utf16-le-bom.xml -text
 fixture-utf16-be.xml -text
 fixture-utf16-le.xml -text
+no-xml-header-utf8.svg -text
+no-xml-header-utf8-bom.svg -text
+no-xml-header-utf16-be-bom.svg -text
+no-xml-header-utf16-le-bom.svg -text
