@@ -107,7 +107,7 @@ __metadata:
     file-type: "npm:^21.0.0"
     mocha: "npm:^11.7.1"
     sax: "npm:^1.4.1"
-    strtok3: "npm:^10.3.2"
+    strtok3: "npm:^10.3.4"
     typescript: "npm:^5.8.3"
   languageName: unknown
   linkType: soft
@@ -1064,12 +1064,12 @@ __metadata:
   languageName: node
   linkType: hard
 
-"strtok3@npm:^10.3.2":
-  version: 10.3.2
-  resolution: "strtok3@npm:10.3.2"
+"strtok3@npm:^10.3.4":
+  version: 10.3.4
+  resolution: "strtok3@npm:10.3.4"
   dependencies:
     "@tokenizer/token": "npm:^0.3.0"
-  checksum: 10c0/cbdc2686cfd6127cf726f8ad5f81ebf100bc4609a5fd620f9ba111cda92b7baf789e71337c99978965730eac0645ef1b6dc5d673ac5171f51d776527b9432ce1
+  checksum: 10c0/277ab69e417f4545e364ffaf9d560c991f531045dbace32d77b5c822cccd76a608b782785a2c60595274288d4d32dced184a5c21dc20348791da697127dc69a8
   languageName: node
   linkType: hard
 
