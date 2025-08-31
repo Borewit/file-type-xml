@@ -1,8 +1,6 @@
 {
-	"$schema": "https://biomejs.dev/schemas/1.9.3/schema.json",
-	"organizeImports": {
-		"enabled": false
-	},
+	"$schema": "https://biomejs.dev/schemas/2.2.2/schema.json",
+	"assist": { "actions": { "source": { "organizeImports": "off" } } },
 	"formatter": {
 		"enabled": false
 	},
@@ -17,7 +15,16 @@
 				"noEmptyBlockStatements": "error",
 				"useErrorMessage": "error"
 			},
-			"nursery":{
+			"nursery": {},
+			"correctness": {
+				"noUnusedImports": "error",
+				"noNodejsModules": "error"
+			},
+			"style": {
+				"useConsistentBuiltinInstantiation": "error",
+				"useThrowNewError": "error",
+				"useThrowOnlyError": "error",
+				"noParameterAssign": { "level": "off" },
 				"noRestrictedImports": {
 					"level": "error",
 					"options": {
@@ -26,33 +33,24 @@
 						}
 					}
 				}
-			},
-			"correctness": {
-				"noUnusedImports": "error",
-				"noNodejsModules": "error"
-			},
-			"style":{
-				"useConsistentBuiltinInstantiation": "error",
-				"useThrowNewError": "error",
-				"useThrowOnlyError": "error",
-				"noParameterAssign": { "level": "off"}
 			}
 		}
 	},
 	"files": {
 		"ignoreUnknown": true,
-		"ignore": [
-			"./coverage",
-			"./yarn",
-			"./lib/**/*.d.ts",
-			"./lib/**/*.js",
-			"./test/**/*.d.ts",
-			"./test/**/*.js"
+		"includes": [
+			"**",
+			"!coverage",
+			"!yarn",
+			"!lib/**/*.d.ts",
+			"!lib/**/*.js",
+			"!test/**/*.d.ts",
+			"!test/**/*.js"
 		]
 	},
 	"overrides": [
 		{
-			"include": ["./test/**/*"],
+			"includes": ["test/**/*"],
 			"linter": {
 				"rules": {
 					"correctness": {

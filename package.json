@@ -9,10 +9,11 @@
 		"clean": "del-cli 'lib/**/*.js' 'lib/**/*.js.map' 'lib/**/*.d.ts' 'src/**/*.d.ts'",
 		"compile-src": "tsc -p lib",
 		"compile": "yarn run  compile-src",
-		"lint-ts": "biome check",
+		"lint:ts": "biome check",
 		"build": "yarn run clean && yarn compile",
 		"test": "mocha",
-		"prepublishOnly": "yarn run build"
+		"prepublishOnly": "yarn run build",
+		"update-biome": "yarn add -D --exact @biomejs/biome && npx @biomejs/biome migrate --write"
 	},
 	"keywords": [
 		"file-type",
@@ -34,7 +35,7 @@
 		"strtok3": "^10.3.4"
 	},
 	"devDependencies": {
-		"@biomejs/biome": "^1.9.4",
+		"@biomejs/biome": "2.2.2",
 		"@types/sax": "^1.2.7",
 		"chai": "^6.0.1",
 		"del-cli": "^6.0.0",
