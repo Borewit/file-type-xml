@@ -1,6 +1,6 @@
 import sax from 'sax';
-import type {ITokenizer} from 'strtok3';
-import type {FileTypeResult, Detector} from 'file-type';
+import type { ITokenizer } from 'strtok3';
+import type { FileTypeResult, Detector } from 'file-type';
 
 type XmlTextEncoding = 'utf-8' | 'utf-16be' | 'utf-16le';
 

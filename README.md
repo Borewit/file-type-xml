@@ -43,3 +43,7 @@ console.log(JSON.stringify(fileType)); // Outputs: {"ext":"svg","mime":"image/sv
 - [RSS (RDF Site Summary or Really Simple Syndication)](https://en.wikipedia.org/wiki/RSS)
 - [SVG: (Scalable Vector Graphics)](https://en.wikipedia.org/wiki/SVG)
 - [XHTML](https://en.wikipedia.org/wiki/XHTML)
+
+## Licence
+
+This project is licensed under the [MIT License](LICENSE.txt). Feel free to use, modify, and distribute as needed.
