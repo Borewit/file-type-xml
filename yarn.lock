@@ -102,7 +102,7 @@ __metadata:
   dependencies:
     "@biomejs/biome": "npm:2.2.2"
     "@types/sax": "npm:^1.2.7"
-    chai: "npm:^6.0.1"
+    chai: "npm:^6.2.1"
     del-cli: "npm:^6.0.0"
     file-type: "npm:^21.0.0"
     mocha: "npm:^11.7.1"
@@ -279,10 +279,10 @@ __metadata:
   languageName: node
   linkType: hard
 
-"chai@npm:^6.0.1":
-  version: 6.0.1
-  resolution: "chai@npm:6.0.1"
-  checksum: 10c0/a09f6019b92b471ebbdac7ecb1d8abbfe66a3cfd90c4e8e2e1b6aabddd6c9001e616f6ae9e15e169fefe9af76eb6007b7b6b285564ab62c738aa354177d01948
+"chai@npm:^6.2.1":
+  version: 6.2.1
+  resolution: "chai@npm:6.2.1"
+  checksum: 10c0/0c2d84392d7c6d44ca5d14d94204f1760e22af68b83d1f4278b5c4d301dabfc0242da70954dd86b1eda01e438f42950de6cf9d569df2103678538e4014abe50b
   languageName: node
   linkType: hard
 
