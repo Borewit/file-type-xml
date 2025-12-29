@@ -39,7 +39,7 @@
 		"@types/sax": "^1.2.7",
 		"chai": "^6.0.1",
 		"del-cli": "^6.0.0",
-		"file-type": "^21.0.0",
+		"file-type": "^21.2.0",
 		"mocha": "^11.7.1",
 		"typescript": "^5.9.2"
 	},
