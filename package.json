@@ -31,7 +31,7 @@
 		"MusicXML"
 	],
 	"dependencies": {
-		"sax": "^1.4.3",
+		"sax": "^1.4.4",
 		"strtok3": "^10.3.4"
 	},
 	"devDependencies": {
