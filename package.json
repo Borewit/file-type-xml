@@ -40,7 +40,7 @@
 		"@biomejs/biome": "2.3.15",
 		"@types/sax": "^1.2.7",
 		"chai": "^6.2.2",
-		"del-cli": "^6.0.0",
+		"del-cli": "^7.0.0",
 		"file-type": "^21.3.0",
 		"mocha": "^11.7.1",
 		"typescript": "^5.9.3"
