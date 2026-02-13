@@ -158,6 +158,20 @@ describe('XML detector', () => {
 				await tokenizer.close();
 			}
 		});
+
+		it('should detect Apple Property list (.plist)', async () => {
+			const samplePath = getSamplePath('plist.xml');
+			const tokenizer = await fromFile(samplePath);
+			try {
+				const fileType = await detectXml.detect(tokenizer);
+				assert.isDefined(fileType, 'should detect Apple Property list');
+				assert.strictEqual(fileType.mime, 'application/x-plist');
+				assert.strictEqual(fileType.ext, 'plist');
+			} finally {
+				await tokenizer.close();
+			}
+		});
+
 	});
 
 	describe('Handle different text encoding', () => {
@@ -287,5 +301,6 @@ describe('XML detector', () => {
 			});
 		});
 	});
+
 
 });

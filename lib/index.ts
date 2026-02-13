@@ -84,9 +84,12 @@ const namespaceMapping: { [id: string]: FileTypeResult; } = {
 /**
  * Maps the root element name to corresponding file-type.
  * Used for Non-namespaced XML
- * @type {{rss: {ext: string, mime: string}}}
  */
 const rootNameMapping: { [id: string]: FileTypeResult; } = {
+	plist: {
+		ext: 'plist',
+		mime: 'application/x-plist'
+	},
 	rss: {
 		ext: 'rss',
 		mime: 'application/rss+xml'
