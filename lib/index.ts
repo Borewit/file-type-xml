@@ -1,6 +1,6 @@
 import sax from 'sax';
-import type { ITokenizer } from 'strtok3';
-import type { FileTypeResult, Detector } from 'file-type';
+import type {ITokenizer} from 'strtok3';
+import type {FileTypeResult, Detector} from 'file-type';
 
 type XmlTextEncoding = 'utf-8' | 'utf-16be' | 'utf-16le';
 
@@ -61,32 +61,7 @@ export function isXml(array: Uint8Array): { xml: true, encoding: XmlTextEncoding
 }
 
 /**
- * Maps the root element namespace to corresponding file-type
- */
-const namespaceMapping: { [id: string]: FileTypeResult; } = {
-	'http://www.w3.org/2000/svg': {
-		ext: 'svg',
-		mime: 'image/svg+xml'
-	},
-	'http://www.w3.org/1999/xhtml': {
-		ext: 'xhtml',
-		mime: 'application/xhtml+xml'
-	},
-	'http://www.opengis.net/kml/2.2': {
-		ext: 'kml',
-		mime: 'application/vnd.google-earth.kml+xml'
-	},
-	'http://www.opengis.net/gml': {
-		ext: 'gml',
-		mime: 'application/gml+xml'
-	},
-	'http://www.w3.org/ns/ttml': {
-		ext: 'ttml',
-		mime: 'application/ttml+xml'
-	}
-};
-/**
- * Maps the root element name to corresponding file-type.
+ * Maps the root element name to the corresponding file-type.
  * Used for Non-namespaced XML
  */
 const rootNameMapping: { [id: string]: FileTypeResult; } = {
@@ -102,15 +77,43 @@ const rootNameMapping: { [id: string]: FileTypeResult; } = {
 		ext: 'musicxml',
 		mime: 'application/vnd.recordare.musicxml+xml'
 	},
+	smil: {
+		ext: 'smil',
+		mime: 'application/smil+xml'
+	},
 	svg: {
 		ext: 'svg',
 		mime: 'image/svg+xml'
-	}
+	},
 };
 
 interface IXmlTextDetectorOptions {
 	fullScan?: boolean;
 }
+
+/**
+ * Maps the root element namespace to the corresponding file-type
+ */
+const namespaceMapping: { [id: string]: FileTypeResult; } = {
+	'http://www.w3.org/2000/svg': rootNameMapping.svg,
+	'http://www.w3.org/1999/xhtml': {
+		ext: 'xhtml',
+		mime: 'application/xhtml+xml'
+	},
+	'http://www.opengis.net/kml/2.2': {
+		ext: 'kml',
+		mime: 'application/vnd.google-earth.kml+xml'
+	},
+	'http://www.opengis.net/gml': {
+		ext: 'gml',
+		mime: 'application/gml+xml'
+	},
+	'http://www.w3.org/ns/ttml': {
+		ext: 'ttml',
+		mime: 'application/ttml+xml'
+	},
+	'http://www.w3.org/2001/SMIL20/Language': rootNameMapping.smil,
+};
 
 export class XmlTextDetector {
 
