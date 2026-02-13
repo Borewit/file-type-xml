@@ -185,6 +185,34 @@ describe('XML detector', () => {
 			}
 		});
 
+		it('should detect SMIL when no XML namespace is declared', async () => {
+			const samplePath = getSamplePath('no-namespace.smil');
+			const tokenizer = await fromFile(samplePath);
+
+			try {
+				const fileType = await detectXml.detect(tokenizer);
+				assert.isDefined(fileType, 'Expected SMIL file type to be detected');
+				assert.strictEqual(fileType.mime, 'application/smil+xml', 'Expected SMIL MIME type');
+				assert.strictEqual(fileType.ext, 'smil', 'Expected SMIL file extension');
+			} finally {
+				await tokenizer.close();
+			}
+		});
+
+		it('should detect SMIL when an XML namespace is declared', async () => {
+			const samplePath = getSamplePath('tears_of_steel.smil');
+			const tokenizer = await fromFile(samplePath);
+
+			try {
+				const fileType = await detectXml.detect(tokenizer);
+				assert.isDefined(fileType, 'Expected SMIL file type to be detected');
+				assert.strictEqual(fileType.mime, 'application/smil+xml', 'Expected SMIL MIME type');
+				assert.strictEqual(fileType.ext, 'smil', 'Expected SMIL file extension');
+			} finally {
+				await tokenizer.close();
+			}
+		});
+
 	});
 
 	describe('Handle different text encoding', () => {

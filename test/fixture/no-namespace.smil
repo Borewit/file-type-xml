@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<smil title="">
+	<body>
+		<switch>
+			<audioOnly src="bigbuckbunny_450.mp4" systemLanguage="eng" groupId="aac" default="true" autoSelect="true"/>
+			<video src="bigbuckbunny_450.mp4" systemLanguage="eng" system-bitrate="450000" hlsAudioGroupId="aac"/>
+			<video src="bigbuckbunny_750.mp4" systemLanguage="eng" system-bitrate="750000" hlsAudioGroupId="aac"/>
+			<video src="bigbuckbunny_1100.mp4" systemLanguage="eng" system-bitrate="1100000" hlsAudioGroupId="aac"/>
+			<video src="bigbuckbunny_1500.mp4" systemLanguage="eng" system-bitrate="1500000" hlsAudioGroupId="aac"/>
+		</switch>
+	</body>
+</smil>
