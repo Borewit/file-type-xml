@@ -40,6 +40,7 @@ console.log(JSON.stringify(fileType)); // Outputs: {"ext":"svg","mime":"image/sv
 - [GML (Geography Markup Language)](https://en.wikipedia.org/wiki/Geography_Markup_Language)
 - [KML (Keyhole Markup Language)](https://en.wikipedia.org/wiki/XHTML)
 - [MusicXML, Uncompressed](https://en.wikipedia.org/wiki/MusicXML)
+- [Apple Property list, `.plist`](https://en.wikipedia.org/wiki/Property_list)
 - [RSS (RDF Site Summary or Really Simple Syndication)](https://en.wikipedia.org/wiki/RSS)
 - [SVG: (Scalable Vector Graphics)](https://en.wikipedia.org/wiki/SVG)
 - [XHTML](https://en.wikipedia.org/wiki/XHTML)

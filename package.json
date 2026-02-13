@@ -28,7 +28,9 @@
 		"RSS",
 		"KML",
 		"GML",
-		"MusicXML"
+		"MusicXML",
+		"plist",
+		"property list"
 	],
 	"dependencies": {
 		"sax": "^1.4.4",
