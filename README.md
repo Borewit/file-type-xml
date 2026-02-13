@@ -43,6 +43,7 @@ console.log(JSON.stringify(fileType)); // Outputs: {"ext":"svg","mime":"image/sv
 - [Apple Property list, `.plist`](https://en.wikipedia.org/wiki/Property_list)
 - [RSS (RDF Site Summary or Really Simple Syndication)](https://en.wikipedia.org/wiki/RSS)
 - [SVG: (Scalable Vector Graphics)](https://en.wikipedia.org/wiki/SVG)
+- [TTML: (Timed Text Markup Language)](https://en.wikipedia.org/wiki/Timed_Text_Markup_Language)
 - [XHTML](https://en.wikipedia.org/wiki/XHTML)
 
 ## Licence
