@@ -172,6 +172,19 @@ describe('XML detector', () => {
 			}
 		});
 
+		it('should detect TTML', async () => {
+			const samplePath = getSamplePath('sample.ttml');
+			const tokenizer = await fromFile(samplePath);
+			try {
+				const fileType = await detectXml.detect(tokenizer);
+				assert.isDefined(fileType, 'should detect TTML');
+				assert.strictEqual(fileType.mime, 'application/ttml+xml');
+				assert.strictEqual(fileType.ext, 'ttml');
+			} finally {
+				await tokenizer.close();
+			}
+		});
+
 	});
 
 	describe('Handle different text encoding', () => {

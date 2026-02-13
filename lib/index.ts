@@ -79,6 +79,10 @@ const namespaceMapping: { [id: string]: FileTypeResult; } = {
 	'http://www.opengis.net/gml': {
 		ext: 'gml',
 		mime: 'application/gml+xml'
+	},
+	'http://www.w3.org/ns/ttml': {
+		ext: 'ttml',
+		mime: 'application/ttml+xml'
 	}
 };
 /**
