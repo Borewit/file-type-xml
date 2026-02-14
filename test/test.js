@@ -283,6 +283,20 @@ describe('XML detector', () => {
 			}
 		});
 
+		it('should detect X3D', async () => {
+			const samplePath = getSamplePath('BoxExample.x3d');
+			const tokenizer = await fromFile(samplePath);
+
+			try {
+				const fileType = await detectXml.detect(tokenizer);
+				assert.isDefined(fileType, 'Expected X3D file type to be detected');
+				assert.strictEqual(fileType.mime, 'model/x3d+xml', 'Expected X3D MIME type');
+				assert.strictEqual(fileType.ext, 'x3d', 'Expected X3D file extension');
+			} finally {
+				await tokenizer.close();
+			}
+		});
+
 	});
 
 	describe('Handle different text encoding', () => {

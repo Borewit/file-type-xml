@@ -81,6 +81,10 @@ export const fileType = {
 	svg: {
 		ext: 'svg',
 		mime: 'image/svg+xml'
+	},
+	x3d: {
+		ext: 'x3d',
+		mime: 'model/x3d+xml'
 	}
 } as const satisfies Record<string, FileTypeResult>;
 
@@ -152,7 +156,8 @@ const docTypeMapping: { [id: string]: FileTypeResult; } = {
 	'-//OASIS//DTD DocBook XML V4.4//EN': fileType.docBook,
 	'-//OASIS//DTD DocBook XML V4.5//EN': fileType.docBook,
 	'-//Recordare//DTD MusicXML 4.0 Partwise//EN': fileType.musicXml,
-	'-//Apple//DTD PLIST 1.0//EN': fileType.plist
+	'-//Apple//DTD PLIST 1.0//EN': fileType.plist,
+	'ISO//Web3D//DTD X3D 3.3//EN': fileType.x3d,
 };
 
 export class XmlTextDetector {

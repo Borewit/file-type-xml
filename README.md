@@ -48,6 +48,7 @@ console.log(JSON.stringify(fileType)); // Outputs: {"ext":"svg","mime":"image/sv
 - [SVG: (Scalable Vector Graphics)](https://en.wikipedia.org/wiki/SVG)
 - [TEI, Text Encoding Initiative](https://en.wikipedia.org/wiki/Text_Encoding_Initiative)
 - [TTML: (Timed Text Markup Language)](https://en.wikipedia.org/wiki/Timed_Text_Markup_Language)
+- [X3D (Extensible 3D)](https://en.wikipedia.org/wiki/X3D)
 - [XHTML](https://en.wikipedia.org/wiki/XHTML)
 - [XLIFF (XML Localization Interchange File Format)](https://en.wikipedia.org/wiki/XLIFF)
 
