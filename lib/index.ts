@@ -127,6 +127,10 @@ const namespaceMapping: { [id: string]: FileTypeResult; } = {
 	'http://www.tei-c.org/ns/1.0': {
 		ext: 'tei',
 		mime: 'application/tei+xml'
+	},
+	'http://www.w3.org/1998/Math/MathML': {
+		ext: 'mml',
+		mime: 'application/mathml+xml'
 	}
 };
 
