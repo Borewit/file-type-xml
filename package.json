@@ -30,7 +30,9 @@
 		"GML",
 		"MusicXML",
 		"plist",
-		"property list"
+		"property list",
+		"xliff",
+		"xlf"
 	],
 	"dependencies": {
 		"sax": "^1.4.4",

@@ -116,6 +116,10 @@ const namespaceMapping: { [id: string]: FileTypeResult; } = {
 	'http://www.w3.org/2005/Atom': {
 		ext: 'atom',
 		mime: 'application/atom+xml'
+	},
+	'urn:oasis:names:tc:xliff:document:2.0': {
+		ext: 'xlf',
+		mime: 'application/xliff+xml'
 	}
 };
 
