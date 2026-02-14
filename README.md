@@ -37,6 +37,7 @@ console.log(JSON.stringify(fileType)); // Outputs: {"ext":"svg","mime":"image/sv
 ## Support file formats
 
 - [XML](https://en.wikipedia.org/wiki/XML) (default for XML, unless a more specific format was detected)
+- [Atom](<https://en.wikipedia.org/wiki/Atom_(web_standard)>)
 - [GML (Geography Markup Language)](https://en.wikipedia.org/wiki/Geography_Markup_Language)
 - [KML (Keyhole Markup Language)](https://en.wikipedia.org/wiki/XHTML)
 - [MusicXML, Uncompressed](https://en.wikipedia.org/wiki/MusicXML)
