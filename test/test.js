@@ -227,6 +227,20 @@ describe('XML detector', () => {
 			}
 		});
 
+		it('should detect XLIFF', async () => {
+			const samplePath = getSamplePath('fixture.xlf');
+			const tokenizer = await fromFile(samplePath);
+
+			try {
+				const fileType = await detectXml.detect(tokenizer);
+				assert.isDefined(fileType, 'Expected XLIFF file type to be detected');
+				assert.strictEqual(fileType.mime, 'application/xliff+xml', 'Expected SMIL MIME type');
+				assert.strictEqual(fileType.ext, 'xlf', 'Expected XLIFF file extension');
+			} finally {
+				await tokenizer.close();
+			}
+		});
+
 	});
 
 	describe('Handle different text encoding', () => {
