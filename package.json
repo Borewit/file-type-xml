@@ -34,7 +34,8 @@
 		"xliff",
 		"xlf",
 		"docbook",
-		"tei"
+		"tei",
+		"x3d"
 	],
 	"dependencies": {
 		"sax": "^1.4.4",
