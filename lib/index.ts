@@ -113,6 +113,10 @@ const namespaceMapping: { [id: string]: FileTypeResult; } = {
 		mime: 'application/ttml+xml'
 	},
 	'http://www.w3.org/2001/SMIL20/Language': rootNameMapping.smil,
+	'http://www.w3.org/2005/Atom': {
+		ext: 'atom',
+		mime: 'application/atom+xml'
+	}
 };
 
 export class XmlTextDetector {

@@ -213,6 +213,20 @@ describe('XML detector', () => {
 			}
 		});
 
+		it('should detect Atom', async () => {
+			const samplePath = getSamplePath('sample.atom');
+			const tokenizer = await fromFile(samplePath);
+
+			try {
+				const fileType = await detectXml.detect(tokenizer);
+				assert.isDefined(fileType, 'Expected Atom file type to be detected');
+				assert.strictEqual(fileType.mime, 'application/atom+xml', 'Expected Atom MIME type');
+				assert.strictEqual(fileType.ext, 'atom', 'Expected Atom file extension');
+			} finally {
+				await tokenizer.close();
+			}
+		});
+
 	});
 
 	describe('Handle different text encoding', () => {
