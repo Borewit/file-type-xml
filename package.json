@@ -33,7 +33,8 @@
 		"property list",
 		"xliff",
 		"xlf",
-		"docbook"
+		"docbook",
+		"tei"
 	],
 	"dependencies": {
 		"sax": "^1.4.4",

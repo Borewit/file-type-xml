@@ -269,6 +269,20 @@ describe('XML detector', () => {
 			}
 		});
 
+		it('should detect TEI', async () => {
+			const samplePath = getSamplePath('sample.tei');
+			const tokenizer = await fromFile(samplePath);
+
+			try {
+				const fileType = await detectXml.detect(tokenizer);
+				assert.isDefined(fileType, 'Expected TEI file type to be detected');
+				assert.strictEqual(fileType.mime, 'application/tei+xml', 'Expected TEI MIME type');
+				assert.strictEqual(fileType.ext, 'tei', 'Expected TEI file extension');
+			} finally {
+				await tokenizer.close();
+			}
+		});
+
 	});
 
 	describe('Handle different text encoding', () => {

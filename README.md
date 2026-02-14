@@ -46,6 +46,7 @@ console.log(JSON.stringify(fileType)); // Outputs: {"ext":"svg","mime":"image/sv
 - [RSS (RDF Site Summary or Really Simple Syndication)](https://en.wikipedia.org/wiki/RSS)
 - [SMIL: (Synchronized Multimedia Integration Language)](https://en.wikipedia.org/wiki/Synchronized_Multimedia_Integration_Language)
 - [SVG: (Scalable Vector Graphics)](https://en.wikipedia.org/wiki/SVG)
+- [TEI, Text Encoding Initiative](https://en.wikipedia.org/wiki/Text_Encoding_Initiative)
 - [TTML: (Timed Text Markup Language)](https://en.wikipedia.org/wiki/Timed_Text_Markup_Language)
 - [XHTML](https://en.wikipedia.org/wiki/XHTML)
 - [XLIFF (XML Localization Interchange File Format)](https://en.wikipedia.org/wiki/XLIFF)
