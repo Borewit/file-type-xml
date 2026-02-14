@@ -1,6 +1,7 @@
 import sax from 'sax';
 import type {ITokenizer} from 'strtok3';
 import type {FileTypeResult, Detector} from 'file-type';
+import {parseDoctype} from "./xmlDocTypeParser.js";
 
 type XmlTextEncoding = 'utf-8' | 'utf-16be' | 'utf-16le';
 
@@ -60,22 +61,18 @@ export function isXml(array: Uint8Array): { xml: true, encoding: XmlTextEncoding
 	return {xml: false};
 }
 
-/**
- * Maps the root element name to the corresponding file-type.
- * Used for Non-namespaced XML
- */
-const rootNameMapping: { [id: string]: FileTypeResult; } = {
+export const fileType = {
+	docBook: {
+		ext: 'dbk',
+		mime: 'application/docbook+xml'
+	},
+	musicXml: {
+		ext: 'musicxml',
+		mime: 'application/vnd.recordare.musicxml+xml'
+	},
 	plist: {
 		ext: 'plist',
 		mime: 'application/x-plist'
-	},
-	rss: {
-		ext: 'rss',
-		mime: 'application/rss+xml'
-	},
-	'score-partwise': {
-		ext: 'musicxml',
-		mime: 'application/vnd.recordare.musicxml+xml'
 	},
 	smil: {
 		ext: 'smil',
@@ -84,8 +81,9 @@ const rootNameMapping: { [id: string]: FileTypeResult; } = {
 	svg: {
 		ext: 'svg',
 		mime: 'image/svg+xml'
-	},
-};
+	}
+} as const satisfies Record<string, FileTypeResult>;
+
 
 interface IXmlTextDetectorOptions {
 	fullScan?: boolean;
@@ -95,7 +93,7 @@ interface IXmlTextDetectorOptions {
  * Maps the root element namespace to the corresponding file-type
  */
 const namespaceMapping: { [id: string]: FileTypeResult; } = {
-	'http://www.w3.org/2000/svg': rootNameMapping.svg,
+	'http://www.w3.org/2000/svg': fileType.svg,
 	'http://www.w3.org/1999/xhtml': {
 		ext: 'xhtml',
 		mime: 'application/xhtml+xml'
@@ -112,7 +110,7 @@ const namespaceMapping: { [id: string]: FileTypeResult; } = {
 		ext: 'ttml',
 		mime: 'application/ttml+xml'
 	},
-	'http://www.w3.org/2001/SMIL20/Language': rootNameMapping.smil,
+	'http://www.w3.org/2001/SMIL20/Language': fileType.smil,
 	'http://www.w3.org/2005/Atom': {
 		ext: 'atom',
 		mime: 'application/atom+xml'
@@ -120,7 +118,37 @@ const namespaceMapping: { [id: string]: FileTypeResult; } = {
 	'urn:oasis:names:tc:xliff:document:2.0': {
 		ext: 'xlf',
 		mime: 'application/xliff+xml'
-	}
+	},
+	'http://docbook.org/ns/docbook': fileType.docBook,
+};
+
+/**
+ * Maps the root element name to the corresponding file-type.
+ * Used for Non-namespaced XML
+ */
+const rootNameMapping: { [id: string]: FileTypeResult; } = {
+	plist: fileType.plist,
+	rss: {
+		ext: 'rss',
+		mime: 'application/rss+xml'
+	},
+	'score-partwise': fileType.musicXml,
+	smil: fileType.smil,
+	svg: fileType.svg
+};
+
+/**
+ * Maps DOCTYPE public identifier to the corresponding file-type
+ */
+const docTypeMapping: { [id: string]: FileTypeResult; } = {
+	'-//OASIS//DTD DocBook XML V4.0//EN': fileType.docBook,
+	'-//OASIS//DTD DocBook XML V4.1//EN': fileType.docBook,
+	'-//OASIS//DTD DocBook XML V4.2//EN': fileType.docBook,
+	'-//OASIS//DTD DocBook XML V4.3//EN': fileType.docBook,
+	'-//OASIS//DTD DocBook XML V4.4//EN': fileType.docBook,
+	'-//OASIS//DTD DocBook XML V4.5//EN': fileType.docBook,
+	'-//Recordare//DTD MusicXML 4.0 Partwise//EN': fileType.musicXml,
+	'-//Apple//DTD PLIST 1.0//EN': fileType.plist
 };
 
 export class XmlTextDetector {
@@ -162,6 +190,18 @@ export class XmlTextDetector {
 				this.onEnd = true;
 			}
 		};
+		this.parser.ondoctype = rawDocType => {
+			if (this.fileType || this.onEnd) {
+				return;
+			}
+			const docType = parseDoctype(rawDocType);
+			if (docType.kind === 'PUBLIC' && docType.publicId) {
+				this.fileType = docTypeMapping[docType.publicId];
+				if (this.fileType && !this.options.fullScan) {
+					this.onEnd = true;
+				}
+			}
+		};
 		this.parser.onclosetag = () => {
 			--this.nesting;
 		};
@@ -185,7 +225,7 @@ export const detectXml: Detector = {
 	id: 'xml',
 	detect: async (tokenizer: ITokenizer) => {
 		const buffer = new Uint8Array(512);
-		// Increase sample size from 12 to 256.
+		// Increase the sample size from 12 to 128.
 		await tokenizer.peekBuffer(buffer, {length: 128, mayBeLess: true});
 		const xmlDetection = isXml(buffer);
 		if (xmlDetection.xml) {

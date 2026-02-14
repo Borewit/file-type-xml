@@ -241,6 +241,34 @@ describe('XML detector', () => {
 			}
 		});
 
+		it('should detect DocBook v4', async () => {
+			const samplePath = getSamplePath('docbookv4_sample1.dbk');
+			const tokenizer = await fromFile(samplePath);
+
+			try {
+				const fileType = await detectXml.detect(tokenizer);
+				assert.isDefined(fileType, 'Expected DocBook file type to be detected');
+				assert.strictEqual(fileType.mime, 'application/docbook+xml', 'Expected DocBook MIME type');
+				assert.strictEqual(fileType.ext, 'dbk', 'Expected DocBook file extension');
+			} finally {
+				await tokenizer.close();
+			}
+		});
+
+		it('should detect DocBook v5', async () => {
+			const samplePath = getSamplePath('docbookv5_sample2.dbk');
+			const tokenizer = await fromFile(samplePath);
+
+			try {
+				const fileType = await detectXml.detect(tokenizer);
+				assert.isDefined(fileType, 'Expected DocBook file type to be detected');
+				assert.strictEqual(fileType.mime, 'application/docbook+xml', 'Expected DocBook MIME type');
+				assert.strictEqual(fileType.ext, 'dbk', 'Expected DocBook file extension');
+			} finally {
+				await tokenizer.close();
+			}
+		});
+
 	});
 
 	describe('Handle different text encoding', () => {
