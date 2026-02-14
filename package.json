@@ -32,7 +32,8 @@
 		"plist",
 		"property list",
 		"xliff",
-		"xlf"
+		"xlf",
+		"docbook"
 	],
 	"dependencies": {
 		"sax": "^1.4.4",
