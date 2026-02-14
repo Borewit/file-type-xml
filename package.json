@@ -38,7 +38,8 @@
 		"x3d",
 		"atom",
 		"TTML",
-		"SMIL"
+		"SMIL",
+		"OPML"
 	],
 	"dependencies": {
 		"sax": "^1.4.4",
