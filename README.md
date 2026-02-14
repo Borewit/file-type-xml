@@ -42,6 +42,7 @@ console.log(JSON.stringify(fileType)); // Outputs: {"ext":"svg","mime":"image/sv
 - [DocBook](https://en.wikipedia.org/wiki/DocBook)
 - [GML (Geography Markup Language)](https://en.wikipedia.org/wiki/Geography_Markup_Language)
 - [KML (Keyhole Markup Language)](https://en.wikipedia.org/wiki/Keyhole_Markup_Language)
+- [MathML (Mathematical Markup Language)](https://en.wikipedia.org/wiki/MathML)
 - [MusicXML, Uncompressed](https://en.wikipedia.org/wiki/MusicXML)
 - [OPML (Outline Processor Markup Language)](https://en.wikipedia.org/wiki/OPML)
 - [RSS (RDF Site Summary or Really Simple Syndication)](https://en.wikipedia.org/wiki/RSS)

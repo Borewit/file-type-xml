@@ -39,7 +39,8 @@
 		"atom",
 		"TTML",
 		"SMIL",
-		"OPML"
+		"OPML",
+		"MathML"
 	],
 	"dependencies": {
 		"sax": "^1.4.4",

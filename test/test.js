@@ -311,6 +311,20 @@ describe('XML detector', () => {
 			}
 		});
 
+		it('should detect MathML', async () => {
+			const samplePath = getSamplePath('quadratic_formula.mml');
+			const tokenizer = await fromFile(samplePath);
+
+			try {
+				const fileType = await detectXml.detect(tokenizer);
+				assert.isDefined(fileType, 'Expected MathML file type to be detected');
+				assert.strictEqual(fileType.mime, 'application/mathml+xml', 'Expected MathML MIME type');
+				assert.strictEqual(fileType.ext, 'mml', 'Expected MathML file extension');
+			} finally {
+				await tokenizer.close();
+			}
+		});
+
 	});
 
 	describe('Handle different text encoding', () => {
