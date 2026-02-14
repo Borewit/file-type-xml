@@ -135,6 +135,10 @@ const namespaceMapping: { [id: string]: FileTypeResult; } = {
  * Used for Non-namespaced XML
  */
 const rootNameMapping: { [id: string]: FileTypeResult; } = {
+	opml: {
+		ext: 'opml',
+		mime: 'text/x-opml'
+	},
 	plist: fileType.plist,
 	rss: {
 		ext: 'rss',

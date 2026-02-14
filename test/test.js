@@ -297,6 +297,20 @@ describe('XML detector', () => {
 			}
 		});
 
+		it('should detect OPML', async () => {
+			const samplePath = getSamplePath('playlist.opml');
+			const tokenizer = await fromFile(samplePath);
+
+			try {
+				const fileType = await detectXml.detect(tokenizer);
+				assert.isDefined(fileType, 'Expected OPML file type to be detected');
+				assert.strictEqual(fileType.mime, 'text/x-opml', 'Expected OPML MIME type');
+				assert.strictEqual(fileType.ext, 'opml', 'Expected OPML file extension');
+			} finally {
+				await tokenizer.close();
+			}
+		});
+
 	});
 
 	describe('Handle different text encoding', () => {
