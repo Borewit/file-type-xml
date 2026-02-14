@@ -14,7 +14,7 @@ npm install @file-type/xml
 
 ## Usage
 
-The following example shows how add the XML detector to [file-type](https://github.com/sindresorhus/file-type).
+The following example shows how to add the XML detector to [file-type](https://github.com/sindresorhus/file-type).
 ```js
 import {FileTypeParser} from 'file-type';
 import {detectXml} from '@file-type/xml';
@@ -36,7 +36,7 @@ console.log(JSON.stringify(fileType)); // Outputs: {"ext":"svg","mime":"image/sv
 
 ## Support file formats
 
-- [XML](https://en.wikipedia.org/wiki/XML) (default for XML, unless more specific format was detected)
+- [XML](https://en.wikipedia.org/wiki/XML) (default for XML, unless a more specific format was detected)
 - [GML (Geography Markup Language)](https://en.wikipedia.org/wiki/Geography_Markup_Language)
 - [KML (Keyhole Markup Language)](https://en.wikipedia.org/wiki/XHTML)
 - [MusicXML, Uncompressed](https://en.wikipedia.org/wiki/MusicXML)
