@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<TEI xmlns="http://www.tei-c.org/ns/1.0">
+  <teiHeader>
+    <fileDesc>
+      <titleStmt>
+        <title>Example TEI Document</title>
+        <author>John Doe</author>
+      </titleStmt>
+      <publicationStmt>
+        <publisher>Example Publisher</publisher>
+        <pubPlace>Amsterdam</pubPlace>
+        <date when="2026">2026</date>
+      </publicationStmt>
+      <sourceDesc>
+        <p>Born digital example.</p>
+      </sourceDesc>
+    </fileDesc>
+  </teiHeader>
+
+  <text>
+    <body>
+      <div type="chapter">
+        <head>Chapter 1</head>
+        <p>This is a <hi rend="italic">TEI-encoded</hi> paragraph.</p>
+      </div>
+    </body>
+  </text>
+</TEI>
+

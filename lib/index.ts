@@ -120,6 +120,10 @@ const namespaceMapping: { [id: string]: FileTypeResult; } = {
 		mime: 'application/xliff+xml'
 	},
 	'http://docbook.org/ns/docbook': fileType.docBook,
+	'http://www.tei-c.org/ns/1.0': {
+		ext: 'tei',
+		mime: 'application/tei+xml'
+	}
 };
 
 /**
