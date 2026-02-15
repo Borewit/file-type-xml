@@ -40,7 +40,8 @@
 		"TTML",
 		"SMIL",
 		"OPML",
-		"MathML"
+		"MathML",
+		"GPX"
 	],
 	"dependencies": {
 		"sax": "^1.4.4",
