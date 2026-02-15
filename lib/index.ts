@@ -66,6 +66,10 @@ export const fileType = {
 		ext: 'dbk',
 		mime: 'application/docbook+xml'
 	},
+	gpx: {
+		ext: 'gpx',
+		mime: 'application/gpx+xml'
+	},
 	musicXml: {
 		ext: 'musicxml',
 		mime: 'application/vnd.recordare.musicxml+xml'
@@ -131,7 +135,9 @@ const namespaceMapping: { [id: string]: FileTypeResult; } = {
 	'http://www.w3.org/1998/Math/MathML': {
 		ext: 'mml',
 		mime: 'application/mathml+xml'
-	}
+	},
+	'http://www.topografix.com/GPX/1/0': fileType.gpx,
+	'http://www.topografix.com/GPX/1/1': fileType.gpx,
 };
 
 /**

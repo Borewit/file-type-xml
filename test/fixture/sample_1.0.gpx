@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<gpx
+    version="1.0"
+    creator="ExampleApp"
+    xmlns="http://www.topografix.com/GPX/1/0"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://www.topografix.com/GPX/1/0
+                        http://www.topografix.com/GPX/1/0/gpx.xsd">
+
+  <time>2026-02-15T10:00:00Z</time>
+
+  <wpt lat="52.5200" lon="13.4050">
+    <ele>34.0</ele>
+    <time>2026-02-15T10:00:00Z</time>
+    <name>Berlin Start</name>
+    <desc>Starting point</desc>
+  </wpt>
+
+  <rte>
+    <name>Sample Route</name>
+    <rtept lat="52.5200" lon="13.4050">
+      <ele>34.0</ele>
+      <name>Route Point 1</name>
+    </rtept>
+    <rtept lat="52.5205" lon="13.4095">
+      <ele>36.5</ele>
+      <name>Route Point 2</name>
+    </rtept>
+  </rte>
+
+  <trk>
+    <name>Sample Track</name>
+    <trkseg>
+      <trkpt lat="52.5200" lon="13.4050">
+        <ele>34.0</ele>
+        <time>2026-02-15T10:00:00Z</time>
+      </trkpt>
+      <trkpt lat="52.5205" lon="13.4095">
+        <ele>36.5</ele>
+        <time>2026-02-15T10:05:00Z</time>
+      </trkpt>
+    </trkseg>
+  </trk>
+
+</gpx>

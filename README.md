@@ -41,6 +41,7 @@ console.log(JSON.stringify(fileType)); // Outputs: {"ext":"svg","mime":"image/sv
 - [Atom](<https://en.wikipedia.org/wiki/Atom_(web_standard)>)
 - [DocBook](https://en.wikipedia.org/wiki/DocBook)
 - [GML (Geography Markup Language)](https://en.wikipedia.org/wiki/Geography_Markup_Language)
+- [GPX (GPS Exchange Format)](https://en.wikipedia.org/wiki/GPS_Exchange_Format)
 - [KML (Keyhole Markup Language)](https://en.wikipedia.org/wiki/Keyhole_Markup_Language)
 - [MathML (Mathematical Markup Language)](https://en.wikipedia.org/wiki/MathML)
 - [MusicXML, Uncompressed](https://en.wikipedia.org/wiki/MusicXML)
