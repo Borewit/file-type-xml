@@ -14,13 +14,13 @@ function getSamplePath(filename) {
 	return path.join(dirname, 'fixture', filename);
 }
 
-async function expectXmlDetection(filename, expected,	message) {
+async function expectXmlDetection(filename, expected, message) {
 	const samplePath = getSamplePath(filename);
 	const tokenizer = await fromFile(samplePath);
 	try {
 		const fileType = await detectXml.detect(tokenizer);
-		assert.isDefined(fileType,message ?? `Expected ${filename} to be detected`);
-		assert.strictEqual(fileType.mime, expected.mime,	`Unexpected MIME type for ${filename}`);
+		assert.isDefined(fileType, message ?? `Expected ${filename} to be detected`);
+		assert.strictEqual(fileType.mime, expected.mime, `Unexpected MIME type for ${filename}`);
 		assert.strictEqual(fileType.ext, expected.ext, `Unexpected extension for ${filename}`);
 	} finally {
 		await tokenizer.close();
@@ -69,15 +69,15 @@ describe('XML detector', () => {
 					return detectSvg('no-xml-header-utf8.svg');
 				});
 
-				it('should detect UTF-8 with BOM, without XML header',() => {
+				it('should detect UTF-8 with BOM, without XML header', () => {
 					return detectSvg('no-xml-header-utf8-bom.svg');
 				});
 
-				it('should detect UTF-16-BE with BOM, without XML header',() => {
+				it('should detect UTF-16-BE with BOM, without XML header', () => {
 					return detectSvg('no-xml-header-utf16-be-bom.svg');
 				});
 
-				it('should detect UTF-16-LE with BOM, without XML header',() => {
+				it('should detect UTF-16-LE with BOM, without XML header', () => {
 					return detectSvg('no-xml-header-utf16-le-bom.svg');
 				});
 			});
