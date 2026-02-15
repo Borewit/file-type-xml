@@ -41,7 +41,7 @@ console.log(JSON.stringify(fileType)); // Outputs: {"ext":"svg","mime":"image/sv
 - [Atom](<https://en.wikipedia.org/wiki/Atom_(web_standard)>)
 - [DocBook](https://en.wikipedia.org/wiki/DocBook)
 - [GML (Geography Markup Language)](https://en.wikipedia.org/wiki/Geography_Markup_Language)
-- [KML (Keyhole Markup Language)](https://en.wikipedia.org/wiki/XHTML)
+- [KML (Keyhole Markup Language)](https://en.wikipedia.org/wiki/Keyhole_Markup_Language)
 - [MusicXML, Uncompressed](https://en.wikipedia.org/wiki/MusicXML)
 - [RSS (RDF Site Summary or Really Simple Syndication)](https://en.wikipedia.org/wiki/RSS)
 - [SMIL: (Synchronized Multimedia Integration Language)](https://en.wikipedia.org/wiki/Synchronized_Multimedia_Integration_Language)

@@ -34,8 +34,11 @@
 		"xliff",
 		"xlf",
 		"docbook",
-		"tei",
-		"x3d"
+		"TEI",
+		"x3d",
+		"atom",
+		"TTML",
+		"SMIL"
 	],
 	"dependencies": {
 		"sax": "^1.4.4",
