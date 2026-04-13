@@ -272,6 +272,10 @@ describe('XML detector', () => {
 				await expectNonXml('fixture-utf8.txt');
 			})
 
+			it('should handle UTF-16-BE encoded non-XML text file', async () => {
+				await expectNonXml('fixture-utf16-be.txt');
+			})
+
 			it('should handle UTF-16-LE encoded non-XML text file', async () => {
 				await expectNonXml('fixture-utf16-le.txt');
 			})
