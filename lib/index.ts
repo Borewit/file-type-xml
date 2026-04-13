@@ -47,7 +47,6 @@ export function isXml(array: Uint8Array): { xml: true, encoding: XmlTextEncoding
 		if (startsWith(array.subarray(2), [60, 0, 63, 0, 120, 0, 109, 0, 108, 0, 32, 0]) || hasArrayXmlTag(array, encoding)) {
 			return {xml: true, encoding, offset: 2};
 		}
-		return {xml: true, encoding: 'utf-16le', offset: 2};
 	}
 	if (startsWith(array, [0, 60, 0, 63, 0, 120, 0, 109, 0, 108, 0, 32])) {
 		return {xml: true, encoding: 'utf-16be', offset: 0};
