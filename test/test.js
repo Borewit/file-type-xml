@@ -1,11 +1,11 @@
-import { assert } from 'chai';
-import { describe, it } from 'mocha';
-import { readFile } from 'node:fs/promises';
 import path from 'node:path';
-import { fileURLToPath } from 'node:url';
-import { fromFile } from 'strtok3';
+import {fileURLToPath} from 'node:url';
+import {readFile} from 'node:fs/promises';
+import {describe, it} from 'mocha';
+import {fromFile} from 'strtok3';
+import {assert} from 'chai';
 
-import { detectXml, XmlTextDetector } from '../lib/index.js';
+import {detectXml, XmlTextDetector} from '../lib/index.js';
 
 const filename = fileURLToPath(import.meta.url);
 const dirname = path.dirname(filename);
@@ -264,21 +264,21 @@ describe('XML detector', () => {
 					const fileType = await detectXml.detect(tokenizer);
 					assert.isUndefined(fileType, 'should not be detected as XML');
 				} finally {
-					tokenizer.close();
+					await tokenizer.close();
 				}
 			}
 
 			it('should handle UTF-8 encoded text file', async () => {
 				await expectNonXml('fixture-utf8.txt');
-			})
+			});
 
 			it('should handle UTF-16-BE encoded non-XML text file', async () => {
 				await expectNonXml('fixture-utf16-be.txt');
-			})
+			});
 
 			it('should handle UTF-16-LE encoded non-XML text file', async () => {
 				await expectNonXml('fixture-utf16-le.txt');
-			})
+			});
 		});
 	});
 
@@ -287,7 +287,7 @@ describe('XML detector', () => {
 		describe('SVG Text detection', () => {
 
 			function detectSvg(svgText) {
-				const xmlTextDetector = new XmlTextDetector({ fullScan: true });
+				const xmlTextDetector = new XmlTextDetector({fullScan: true});
 				xmlTextDetector.write(svgText);
 				const fileType = xmlTextDetector.isValid() ? xmlTextDetector.fileType : undefined;
 				assert.isDefined(fileType, 'should detect the file type');
@@ -296,7 +296,7 @@ describe('XML detector', () => {
 			}
 
 			function isNotSvg(svgText) {
-				const xmlTextDetector = new XmlTextDetector({ fullScan: true });
+				const xmlTextDetector = new XmlTextDetector({fullScan: true});
 				xmlTextDetector.write(svgText);
 				const fileType = xmlTextDetector.isValid() ? xmlTextDetector.fileType : undefined;
 				assert.isUndefined(fileType, `should not be detected as SVG: "${svgText}"`);
