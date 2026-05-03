@@ -44,7 +44,7 @@
 		"GPX"
 	],
 	"dependencies": {
-		"sax": "^1.4.4",
+		"sax": "^1.6.0",
 		"strtok3": "^10.3.5"
 	},
 	"devDependencies": {
