@@ -1,4 +1,4 @@
 {
-  "watch-files": ["lib/**/*.js", "test/**/*.js"],
-  "spec": ["test/*.js"]
+	"watch-files": ["lib/**/*.js", "test/**/*.js"],
+	"spec": ["test/*.js"]
 }
