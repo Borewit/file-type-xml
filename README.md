@@ -24,6 +24,25 @@ const fileType = await parser.fromFile('example.kml');
 console.log(fileType);
 ```
 
+The detector inspects at most 16 KiB, including any byte order mark. To change this
+limit, create a detector with a `sampleSize` in bytes:
+
+```js
+import {FileTypeParser} from 'file-type';
+import {createXmlDetector} from '@file-type/xml';
+
+const parser = new FileTypeParser({
+    customDetectors: [createXmlDetector({sampleSize: 64 * 1024})]
+});
+```
+
+The limit applies to both prolog detection and XML parsing. If no XML signature is
+found within the sample, the detector returns `undefined` without consuming input.
+If XML is recognized but its specific format cannot be determined within the sample,
+it returns `application/xml`. `sampleSize` must be a positive safe integer.
+The `file-type` stream sampling option is separate; when using `fileTypeStream`, set
+its `sampleSize` as well if you want a larger sample.
+
 You can also use the XML detector outside [file-type](https://github.com/sindresorhus/file-type):
 ```js
 import {XmlTextDetector} from '@file-type/xml';
