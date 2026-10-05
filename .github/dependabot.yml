@@ -1,11 +1,25 @@
 version: 2
 updates:
 
+  # GitHub Actions
+  - package-ecosystem: github-actions
+    directory: "/"
+    schedule:
+      interval: weekly
+      time: "06:00"
+      timezone: Europe/Amsterdam
+    open-pull-requests-limit: 10
+    target-branch: "master"
+    labels:
+      - DevOps
+
+  # npm and Yarn dependencies
   - package-ecosystem: npm
     directory: "/"
     schedule:
       interval: weekly
       time: "06:00"
+      timezone: Europe/Amsterdam
     open-pull-requests-limit: 20
     versioning-strategy: increase
     target-branch: master
