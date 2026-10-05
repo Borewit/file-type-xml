@@ -393,7 +393,7 @@ describe('XML prolog detection (#114)', () => {
 					const filename = path.join(directory, 'sample.svg');
 					await writeFile(filename, buffer);
 					assert.deepEqual(await parser.fromFile(filename), expected);
-					assert.deepEqual(await parser.fromStream(Readable.from([buffer], {objectMode: false})), expected);
+					assert.deepEqual(await parser.fromStream(Readable.toWeb(Readable.from([buffer], {objectMode: false}))), expected);
 				});
 			}
 
@@ -415,7 +415,7 @@ describe('XML prolog detection (#114)', () => {
 					const filename = path.join(directory, 'doctype.svg');
 					await writeFile(filename, data);
 					assert.deepEqual(await parser.fromFile(filename), expected);
-					assert.deepEqual(await parser.fromStream(Readable.from([data], {objectMode: false})), expected);
+					assert.deepEqual(await parser.fromStream(Readable.toWeb(Readable.from([data], {objectMode: false}))), expected);
 				});
 			}
 
