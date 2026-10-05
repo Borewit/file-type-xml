@@ -1,11 +1,14 @@
 import path from 'node:path';
 import {fileURLToPath} from 'node:url';
-import {readFile} from 'node:fs/promises';
-import {describe, it} from 'mocha';
-import {fromFile} from 'strtok3';
+import {readFile, mkdtemp, writeFile, rm} from 'node:fs/promises';
+import {tmpdir} from 'node:os';
+import {Readable} from 'node:stream';
+import {after, before, describe, it} from 'mocha';
+import {fromBuffer, fromFile, fromStream} from 'strtok3';
+import {FileTypeParser} from 'file-type';
 import {assert} from 'chai';
 
-import {detectXml, XmlTextDetector} from '../lib/index.js';
+import {createXmlDetector, detectXml, isXml, XmlTextDetector} from '../lib/index.js';
 
 const filename = fileURLToPath(import.meta.url);
 const dirname = path.dirname(filename);
@@ -343,4 +346,244 @@ describe('XML detector', () => {
 	});
 
 
+});
+
+describe('XML prolog detection (#114)', () => {
+	const svg = '<svg xmlns="http://www.w3.org/2000/svg"><path fill="#00CD9F"/></svg>';
+	const expected = {ext: 'svg', mime: 'image/svg+xml'};
+	const prologs = [
+		['no prolog', ''],
+		['empty comment', '<!---->'],
+		['Illustrator comment', '<!-- Generator: Adobe Illustrator 27.9.0, SVG Export Plug-In . SVG Version: 6.00 Build 0)  -->\n'],
+		['long comment', `<!-- ${'x'.repeat(4096)} -->`],
+		['XML whitespace', '\n\t\r  '],
+		['long whitespace', ' '.repeat(4096)],
+		['root split across initial sample', ' '.repeat(126)],
+		['comment split across initial sample', `${' '.repeat(126)}<!-- x -->`],
+		['multiple comments and whitespace', '\n<!-- first -->\t<!---->\r\n'],
+		['processing instruction', '<?generator illustrator?>\n<!-- x -->'],
+		['XML declaration and comment', '<?xml version="1.0"?>\n<!-- x -->\n'],
+		['multibyte comment crossing initial sample', `<!-- ${'x'.repeat(122)}é😀 -->`],
+		['multibyte comment crossing read boundary', `<!-- ${'x'.repeat(506)}é😀 -->`],
+	];
+
+	const encodings = [
+		['UTF-8', text => Buffer.from(text)],
+		['UTF-8 BOM', text => Buffer.concat([Buffer.from([0xEF, 0xBB, 0xBF]), Buffer.from(text)])],
+		['UTF-16 LE BOM', text => Buffer.concat([Buffer.from([0xFF, 0xFE]), Buffer.from(text, 'utf16le')])],
+		['UTF-16 BE BOM', text => Buffer.concat([Buffer.from([0xFE, 0xFF]), Buffer.from(text, 'utf16le').swap16()])],
+	];
+
+	let directory;
+	before(async () => {
+		directory = await mkdtemp(path.join(tmpdir(), 'file-type-xml-prolog-'));
+	});
+	after(async () => {
+		await rm(directory, {recursive: true, force: true});
+	});
+
+	for (const [encoding, encode] of encodings) {
+		describe(encoding, () => {
+			for (const [label, prolog] of prologs) {
+				it(`detects SVG with ${label} from buffers, files and streams`, async () => {
+					const buffer = encode(prolog + svg);
+					assert.isTrue(isXml(buffer).xml);
+					const parser = new FileTypeParser({customDetectors: [detectXml]});
+					assert.deepEqual(await parser.fromBuffer(buffer), expected);
+					const filename = path.join(directory, 'sample.svg');
+					await writeFile(filename, buffer);
+					assert.deepEqual(await parser.fromFile(filename), expected);
+					assert.deepEqual(await parser.fromStream(Readable.from([buffer], {objectMode: false})), expected);
+				});
+			}
+
+			for (const [label, doctype] of [
+				['simple DOCTYPE', '<!DOCTYPE svg>'],
+				['quoted greater-than in system identifier', '<!DOCTYPE svg SYSTEM "example>file.dtd">'],
+				['single-quoted system identifier', "<!DOCTYPE svg SYSTEM 'example>file.dtd'>"],
+				['internal subset', '<!DOCTYPE svg [<!ELEMENT svg EMPTY>]>'],
+				['quoted subset delimiters', '<!DOCTYPE svg [<!ENTITY text "]>[">]>'],
+				['comment inside subset', '<!DOCTYPE svg [<!-- ]> [ --> <!ELEMENT svg EMPTY>]>'],
+				['processing instruction inside subset', '<!DOCTYPE svg [<?generator ]> [ ?> <!ELEMENT svg EMPTY>]>'],
+				['long internal subset', `<!DOCTYPE svg [<!-- ${'x'.repeat(4096)} --> <!ELEMENT svg EMPTY>]>`],
+			]) {
+				it(`detects SVG after comments and ${label}`, async () => {
+					const data = encode(`<!-- x --> \n${doctype}\n<!-- after -->\n<svg/>`);
+					assert.isTrue(isXml(data).xml);
+					const parser = new FileTypeParser({customDetectors: [detectXml]});
+					assert.deepEqual(await parser.fromBuffer(data), expected);
+					const filename = path.join(directory, 'doctype.svg');
+					await writeFile(filename, data);
+					assert.deepEqual(await parser.fromFile(filename), expected);
+					assert.deepEqual(await parser.fromStream(Readable.from([data], {objectMode: false})), expected);
+				});
+			}
+
+			it('detects SVG with multiple whitespace characters before an attribute', async () => {
+				const data = encode('<svg\t \r\n xmlns="http://www.w3.org/2000/svg"/>');
+				assert.isTrue(isXml(data).xml);
+				assert.deepEqual(await detectXml.detect(fromBuffer(data)), expected);
+			});
+
+			for (const [label, prolog] of [
+				['large whitespace prefix', ' '.repeat(65_536)],
+				['many comments', '<!-- x -->'.repeat(10_000)],
+				['many processing instructions', '<?generator illustrator?>'.repeat(4000)],
+			]) {
+				it(`detects SVG after ${label} with a larger sample`, async () => {
+					const data = encode(prolog + svg);
+					assert.isTrue(isXml(data).xml);
+					const detector = createXmlDetector({sampleSize: data.length});
+					assert.deepEqual(await detector.detect(fromBuffer(data)), expected);
+				});
+			}
+
+			it('does not detect incomplete prolog markers after comments', async () => {
+				for (const marker of ['<', '<!', '<!-', '<?', '<!D', '<!DOCTYP', '<!DOCTYPE']) {
+					const data = encode(`<!-- complete --> \n${marker}`);
+					assert.isFalse(isXml(data).xml);
+					const tokenizer = fromBuffer(data);
+					assert.isUndefined(await detectXml.detect(tokenizer));
+					assert.strictEqual(tokenizer.position, 0);
+				}
+			});
+
+			for (const [label, text] of [
+				['empty input', ''],
+				['DOCTYPE without root', '<!-- x --><!DOCTYPE svg>'],
+				['unterminated DOCTYPE quote', '<!DOCTYPE svg SYSTEM "example>file.dtd><svg/>'],
+				['unterminated internal subset', '<!DOCTYPE svg [<!ELEMENT svg EMPTY><svg/>'],
+				['unterminated subset comment', '<!DOCTYPE svg [<!-- ]><svg/>'],
+				['unterminated subset processing instruction', '<!DOCTYPE svg [<?generator ]><svg/>'],
+				['repeated DOCTYPE', '<!DOCTYPE svg><!DOCTYPE svg><svg/>'],
+				['whitespace only', ' '.repeat(4096)],
+				['comment only', `<!-- ${'x'.repeat(4096)} -->`],
+				['unterminated comment', `<!-- ${'x'.repeat(4096)}`],
+				['text after comments', '<!-- x -->not XML'],
+				['SVG mentioned in text', 'text <svg></svg>'],
+				['incomplete tag with long attribute whitespace', '<svg' + ' '.repeat(20_000)],
+				['non-XML whitespace', '\u00A0' + svg],
+			]) {
+				it(`does not consume or detect ${label}`, async () => {
+					const buffer = encode(text);
+					assert.isFalse(isXml(buffer).xml);
+					const tokenizers = [fromBuffer(buffer), await fromStream(Readable.from([buffer], {objectMode: false}))];
+					for (const tokenizer of tokenizers) {
+						try {
+							assert.isUndefined(await detectXml.detect(tokenizer));
+							assert.strictEqual(tokenizer.position, 0);
+						} finally {
+							await tokenizer.close();
+						}
+					}
+				});
+			}
+		});
+	}
+
+	describe('fast rejection of non-XML input', () => {
+		for (const [label, prefix] of [
+			['PNG', Buffer.from([0x89, 0x50, 0x4E, 0x47, 0x0D, 0x0A, 0x1A, 0x0A])],
+			['JPEG', Buffer.from([0xFF, 0xD8, 0xFF])],
+			['ZIP', Buffer.from('PK')],
+			['PDF', Buffer.from('%PDF-1.7')],
+			['ordinary text', Buffer.from('This is ordinary text.')],
+			['JSON', Buffer.from('  {"value": true}')],
+			['NUL bytes', Buffer.from([0, 0, 0, 0])],
+			['invalid UTF-8 after markup', Buffer.from([60, 33, 0xFF])],
+			['invalid UTF-8 after an XML declaration', Buffer.concat([Buffer.from('<?xml '), Buffer.from([0xFF])])],
+		]) {
+			it(`rejects ${label} after one small peek`, async () => {
+				const data = Buffer.concat([prefix, Buffer.alloc(20_000)]);
+				assert.isFalse(isXml(data).xml);
+				const tokenizers = [fromBuffer(data), await fromStream(Readable.from([data], {objectMode: false}))];
+				for (const tokenizer of tokenizers) {
+					let peeks = 0;
+					const original = tokenizer.peekBuffer.bind(tokenizer);
+					tokenizer.peekBuffer = (buffer, options) => {
+						++peeks;
+						assert.isAtMost(buffer.length, 128);
+						return original(buffer, options);
+					};
+					try {
+						assert.isUndefined(await detectXml.detect(tokenizer));
+						assert.strictEqual(peeks, 1);
+						assert.strictEqual(tokenizer.position, 0);
+					} finally {
+						await tokenizer.close();
+					}
+				}
+			});
+		}
+	});
+
+	describe('sampleSize', () => {
+		for (const [encoding, encode] of encodings) {
+			for (const sampleSize of [1, 127, 128, 129, 257, 1024]) {
+				it(`bounds peeking to ${sampleSize} bytes for ${encoding}`, async () => {
+					const data = encode(' '.repeat(4096) + svg);
+					await expectBoundedDetection(data, sampleSize, undefined, 0);
+				});
+			}
+
+			it(`bounds parsing after an XML declaration for ${encoding}`, async () => {
+				const data = encode(`<?xml version="1.0"?><!-- ${'x'.repeat(4096)} -->${svg}`);
+				await expectBoundedDetection(data, 257, {ext: 'xml', mime: 'application/xml'}, 257);
+			});
+
+			it(`bounds scanning an internal subset for ${encoding}`, async () => {
+				const data = encode(`<!-- x --><!DOCTYPE svg [<!-- ${'x'.repeat(4096)} -->]><svg/>`);
+				await expectBoundedDetection(data, 257, undefined, 0);
+			});
+
+			it(`allows a larger sample for ${encoding}`, async () => {
+				const data = encode(`<!-- ${'x'.repeat(4096)} -->${svg}`);
+				await expectBoundedDetection(data, 12_000, expected);
+			});
+
+			it(`caps the default sample for ${encoding}`, async () => {
+				await expectBoundedDetection(encode(' '.repeat(20_000) + svg), undefined, undefined, 0);
+			});
+		}
+
+		async function expectBoundedDetection(data, sampleSize, expectedType, expectedPosition) {
+			const detector = sampleSize === undefined ? detectXml : createXmlDetector({sampleSize});
+			const limit = sampleSize ?? 16_384;
+			const tokenizers = [fromBuffer(data), await fromStream(Readable.from([data], {objectMode: false}))];
+			for (const tokenizer of tokenizers) {
+				for (const method of ['peekBuffer', 'readBuffer']) {
+					const original = tokenizer[method].bind(tokenizer);
+					tokenizer[method] = (buffer, options) => {
+						assert.isAtMost(tokenizer.position + buffer.length, limit, `${method} exceeds sampleSize`);
+						return original(buffer, options);
+					};
+				}
+				try {
+					assert.deepEqual(await detector.detect(tokenizer), expectedType);
+					assert.isAtMost(tokenizer.position, limit);
+					if (expectedPosition !== undefined) {
+						assert.strictEqual(tokenizer.position, expectedPosition);
+					}
+				} finally {
+					await tokenizer.close();
+				}
+			}
+		}
+
+		it('rejects invalid sample sizes', () => {
+			for (const sampleSize of [0, -1, 1.5, NaN, Infinity, Number.MAX_SAFE_INTEGER + 1]) {
+				assert.throws(() => createXmlDetector({sampleSize}), RangeError);
+			}
+		});
+	});
+
+	it('keeps XmlTextDetector support for prologs', () => {
+		for (const [, prolog] of prologs) {
+			const detector = new XmlTextDetector({fullScan: true});
+			detector.write(prolog + svg);
+			detector.close();
+			assert.deepEqual(detector.fileType, expected);
+			assert.isTrue(detector.isValid());
+		}
+	});
 });
