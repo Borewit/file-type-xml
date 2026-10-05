@@ -555,9 +555,9 @@ describe("XML prolog detection (#114)", () => {
 				["SVG mentioned in text", "text <svg></svg>"],
 				[
 					"incomplete tag with long attribute whitespace",
-					"<svg" + " ".repeat(20_000),
+					`<svg${" ".repeat(20_000)}`,
 				],
-				["non-XML whitespace", "\u00A0" + svg],
+				["non-XML whitespace", `\u00A0${svg}`],
 			]) {
 				it(`does not consume or detect ${label}`, async () => {
 					const buffer = encode(text);
