@@ -2,7 +2,8 @@
 	"$schema": "https://biomejs.dev/schemas/2.4.14/schema.json",
 	"assist": { "actions": { "source": { "organizeImports": "off" } } },
 	"formatter": {
-		"enabled": false
+		"enabled": true,
+		"indentStyle": "tab"
 	},
 	"linter": {
 		"enabled": true,
@@ -44,8 +45,7 @@
 			"!yarn",
 			"!lib/**/*.d.ts",
 			"!lib/**/*.js",
-			"!test/**/*.d.ts",
-			"!test/**/*.js"
+			"!test/**/*.d.ts"
 		]
 	},
 	"overrides": [
