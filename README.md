@@ -24,6 +24,17 @@ const fileType = await parser.fromFile('example.kml');
 console.log(fileType);
 ```
 
+With `file-type` 22, Node.js 22 or newer is required. For stream detection, pass a
+web `ReadableStream` to `parser.fromStream()`. Convert a Node.js `Readable` with
+`Readable.toWeb()`:
+
+```js
+import {createReadStream} from 'node:fs';
+import {Readable} from 'node:stream';
+
+const fileType = await parser.fromStream(Readable.toWeb(createReadStream('example.kml')));
+```
+
 The detector inspects at most 16 KiB, including any byte order mark. To change this
 limit, create a detector with a `sampleSize` in bytes:
 
