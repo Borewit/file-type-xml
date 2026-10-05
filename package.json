@@ -54,7 +54,7 @@
 		"del-cli": "^6.0.0",
 		"file-type": "^21.3.4",
 		"mocha": "^11.7.5",
-		"typescript": "^6.0.3"
+		"typescript": "^7.0.2"
 	},
 	"files": [
 		"lib/**/*.js",
@@ -70,5 +70,5 @@
 		"url": "git+https://github.com/Borewit/file-type-xml.git"
 	},
 	"license": "MIT",
-	"packageManager": "yarn@4.9.1"
+	"packageManager": "yarn@4.18.1"
 }
