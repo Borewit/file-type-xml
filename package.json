@@ -45,7 +45,7 @@
 	],
 	"dependencies": {
 		"sax": "^1.6.1",
-		"strtok3": "^10.3.5"
+		"strtok3": "^10.6.2"
 	},
 	"devDependencies": {
 		"@biomejs/biome": "2.5.15",
